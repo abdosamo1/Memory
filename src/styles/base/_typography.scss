@@ -1,0 +1,20 @@
+@use '../abstract/mixins' as *;
+
+// RED ROSE (Variable Font)
+@include font-face('Red Rose', 300 700, normal, '../fonts/red-rose-webfont/RedRose-VariableFont_wght.ttf', 'truetype');
+
+// ALMARAI
+@include font-face('Almarai', 300, normal, '../fonts/almarai-webfont/Almarai-Light.woff', 'woff');
+@include font-face('Almarai', 400, normal, '../fonts/almarai-webfont/Almarai-Regular.woff', 'woff');
+@include font-face('Almarai', 700, normal, '../fonts/almarai-webfont/Almarai-Bold.woff', 'woff');
+@include font-face('Almarai', 800, normal, '../fonts/almarai-webfont/Almarai-ExtraBold.woff', 'woff');
+
+// FIGTREE (Variable Font)
+@include font-face('Figtree', 300 900, normal, '../fonts/figtree-webfont/Figtree[wght].woff', 'woff');
+@include font-face('Figtree', 300 900, italic, '../fonts/figtree-webfont/Figtree-Italic[wght].woff', 'woff');
+
+// ORBITRON
+@include font-face('Orbitron', 300, normal, '../fonts/orbitron-webfont/orbitron-light.woff', 'woff');
+@include font-face('Orbitron', 500, normal, '../fonts/orbitron-webfont/orbitron-medium.woff', 'woff');
+@include font-face('Orbitron', 700, normal, '../fonts/orbitron-webfont/orbitron-bold.woff', 'woff');
+@include font-face('Orbitron', 900, normal, '../fonts/orbitron-webfont/orbitron-black.woff', 'woff');

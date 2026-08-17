@@ -1,0 +1,15 @@
+@use '../abstract/mixins' as *;
+
+section {
+    @include flex-center;
+    height: 100%;
+    width: 100%;
+}
+
+.section-content {
+    @include flex-center;
+    @include full-place;
+    flex-direction: column;
+    position: relative;
+    max-width: 1440px;
+}

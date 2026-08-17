@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./src/img/icon.svg" />
+    <title>Memory</title>
+</head>
+
+<body>
+    <section id="start-screen">
+        <div class="section-content">
+            <div id="start-screen-titles">
+                <p>It’s play time.</p>
+                <h1 id="app">Ready to play?</h1>
+            </div>
+            <button class="button" id="start-button">
+                <img src="./src/img/stadia_controller (1).png" alt="start" class="start-button-controller">
+                Play
+                <img src="./src/img/Arrow 1.svg" id="play-arrow" alt="arrow">
+                <img src="./src/img/Arrow 2.svg" id="play-arrow-hover" class="hidden" alt="arrow">
+            </button>
+            <img class="controller" src="./src/img/stadia_controller.png" alt="start" id="start">
+        </div>
+    </section>
+    <section class="hidden" id="setting-screen">
+        <div class="section-content setting-screen-content">
+            <div class="h2-container">
+                <h2>Settings</h2>
+                <img src="./src/img/underline.svg" alt="underline" class="settings-underline-icon">
+
+            </div>
+            <div class="settings-content">
+                <div class="options-container">
+                    <fieldset class="settings-screen-option">
+                        <legend>
+                            <img src="./src/img/palette.svg" alt="theme">
+                            Game Themes
+                        </legend>
+                        <label>
+                            <input type="radio" name="theme" checked value="gaming"> Gaming theme
+                            <img src="./src/img/active.svg" alt="active choice" class="active-icon">
+                        </label>
+                        <label>
+                            <input type="radio" name="theme" value="da-projects"> DA Projects theme
+                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
+                        </label>
+                    </fieldset>
+                    <fieldset class="settings-screen-option">
+                        <legend>
+                            <img src="./src/img/chess_pawn.svg" alt="player">
+                            Choose Player
+                        </legend>
+                        <label>
+                            <input type="radio" name="player" value="blue"> Blue
+                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
+                        </label>
+                        <label>
+                            <input type="radio" name="player" value="orange"> Orange
+                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
+                        </label>
+                    </fieldset>
+                    <fieldset class="settings-screen-option">
+                        <legend>
+                            <img src="./src/img/style.svg" alt="board icon">
+                            Board Size
+                        </legend>
+                        <label>
+                            <input type="radio" name="board" value="16"> 16 cards
+                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
+                        </label>
+                        <label>
+                            <input type="radio" name="board" value="24"> 24 cards
+                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
+                        </label>
+                        <label>
+                            <input type="radio" name="board" value="36"> 36 cards
+                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="choices-container">
+                    <div id="preview-theme">
+                        <img src="./src/img/theme-dark.svg" id="theme-dark" alt="theme">
+                        <img src="./src/img/theme-light.svg" id="theme-light" class="hidden" alt="theme">
+                    </div>
+                    <div id="selections-status">
+                        <p id="selected-theme">Theme</p>
+                        <img src="./src/img/splitter.svg" alt="splitter" class="default-splitter">
+                        <img class="hidden active-splitter" src="./src/img/splitter2.svg" alt="the other splitter">
+                        <p id="selected-player">Player</p>
+                        <img src="./src/img/splitter.svg" alt="splitter" class="default-splitter">
+                        <img class="hidden active-splitter" src="./src/img/splitter2.svg" alt="the other splitter">
+                        <p id="selected-size">Size</p>
+                        <button class="button" disabled id="start-game-button">
+                            <img class="hidden" id="start-game-active-icon" src="./src/img/smart_display.svg"
+                                alt="start" class="start-button-controller">
+                            <img id="start-game-disabled-icon" src="./src/img/smart_display_disabled.svg" alt="start"
+                                class="start-button-controller">
+                            Start</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="game-screen" class="hidden">
+        <div id="game-board">
+            <div id="game-board-header">
+                <div id="score-board-container"></div>
+                <div id="current-player">
+                    <p>Current Player:</p>
+                    <img src="./src/img/chess_pawn_white.svg" alt="white pawn">
+                </div>
+                <button class="button">
+                    <svg width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.575 5H3C2.85833 5 2.73958 4.95208 2.64375 4.85625C2.54792 4.76042 2.5 4.64167 2.5 4.5C2.5 4.35833 2.54792 4.23958 2.64375 4.14375C2.73958 4.04792 2.85833 4 3 4H8.575L8.15 3.575C8.05 3.475 8.00208 3.35833 8.00625 3.225C8.01042 3.09167 8.05833 2.975 8.15 2.875C8.25 2.775 8.36875 2.72292 8.50625 2.71875C8.64375 2.71458 8.7625 2.7625 8.8625 2.8625L10.15 4.15C10.25 4.25 10.3 4.36667 10.3 4.5C10.3 4.63333 10.25 4.75 10.15 4.85L8.8625 6.1375C8.7625 6.2375 8.64375 6.28542 8.50625 6.28125C8.36875 6.27708 8.25 6.225 8.15 6.125C8.05833 6.025 8.01042 5.90833 8.00625 5.775C8.00208 5.64167 8.05 5.525 8.15 5.425L8.575 5ZM6 2.5V1H1V8H6V6.5C6 6.35833 6.04792 6.23958 6.14375 6.14375C6.23958 6.04792 6.35833 6 6.5 6C6.64167 6 6.76042 6.04792 6.85625 6.14375C6.95208 6.23958 7 6.35833 7 6.5V8C7 8.275 6.90208 8.51042 6.70625 8.70625C6.51042 8.90208 6.275 9 6 9H1C0.725 9 0.489583 8.90208 0.29375 8.70625C0.0979167 8.51042 0 8.275 0 8V1C0 0.725 0.0979167 0.489583 0.29375 0.29375C0.489583 0.0979167 0.725 0 1 0H6C6.275 0 6.51042 0.0979167 6.70625 0.29375C6.90208 0.489583 7 0.725 7 1V2.5C7 2.64167 6.95208 2.76042 6.85625 2.85625C6.76042 2.95208 6.64167 3 6.5 3C6.35833 3 6.23958 2.95208 6.14375 2.85625C6.04792 2.76042 6 2.64167 6 2.5Z" />
+                    </svg>
+                    Exit Game
+                </button>
+            </div>
+            <div id="game-board-content">
+
+            </div>
+        </div>
+    </section>
+
+    <script type="module" src="./src/scripts/main.ts"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+@use '../abstract/variables' as *;
+@use '../abstract/mixins' as *;
+
+.button {
+    @include flex-center;
+    gap: 40px;
+    font-size: 40px;
+    border: none;
+    background-color: $secondary-color;
+    color: $main-color;
+    padding: 24px;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+        transition: all 200ms ease-out;
+    }
+    &:disabled {
+        background-color: #DBDBD6;
+        color: #A3A1A1;
+
+        &:hover {
+            transform: scale(1);
+        }
+    }
+}
+
+#start-button {
+    margin-top: 2rem;
+    font-weight: 700;
+
+    .start-button-controller {
+        transition: transform 200ms ease-out;
+    }
+
+    &:hover .start-button-controller {
+        transform: rotate(-25.77deg);
+    }
+
+    &#play-arrow {
+        transition: transform 200ms ease-out;
+    }
+
+    &#play-arrow-hover {
+        transition: transform 200ms ease-out;
+    }
+
+}
