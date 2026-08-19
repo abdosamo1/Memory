@@ -10,17 +10,18 @@
     color: $main-color;
     padding: 24px;
     cursor: pointer;
+    transition: $primary-transition;
 
     &:hover {
-        transform: scale(1.1);
-        transition: all 200ms ease-out;
+        transform: $scale;
     }
+
     &:disabled {
         background-color: #DBDBD6;
         color: #A3A1A1;
 
         &:hover {
-            transform: scale(1);
+            transform: $no-scale;
         }
     }
 }
@@ -30,7 +31,7 @@
     font-weight: 700;
 
     .start-button-controller {
-        transition: transform 200ms ease-out;
+        transition: $primary-transition;
     }
 
     &:hover .start-button-controller {
@@ -38,11 +39,11 @@
     }
 
     &#play-arrow {
-        transition: transform 200ms ease-out;
+        transition: $primary-transition;
     }
 
     &#play-arrow-hover {
-        transition: transform 200ms ease-out;
+        transition: $primary-transition;
     }
 
 }

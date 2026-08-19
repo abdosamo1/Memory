@@ -75,9 +75,14 @@
         font-size: 18px;
         cursor: pointer;
 
-        &:has(input[type='radio']:checked) {
+        &:has(input[type='radio']:checked),
+        &:hover {
             font-weight: 700;
         }
+    }
+
+    &:has(label:hover) label:has(input[type='radio']:checked):not(:hover) {
+        font-weight: 400;
     }
 
     input[type='radio'] {
@@ -112,7 +117,7 @@
         cursor: pointer;
 
         #start-game-active-icon {
-            transition: transform 200ms ease-out;
+            transition: $primary-transition;
         }
 
         &:disabled {
@@ -125,7 +130,7 @@
 
             &:hover {
                 transform: scale(1.1);
-                transition: transform 200ms ease-out;
+                transition: $primary-transition;
 
                 #start-game-active-icon {
                     transform: rotate(-5.33deg);

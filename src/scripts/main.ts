@@ -40,6 +40,7 @@ function initThemePreview(): void {
  */
 function init(): void {
     app.initSelection();
+    app.initOptionIconHover();
     initThemePreview();
     bindStartButtonEvents();
     bindStartGameButtonEvents();

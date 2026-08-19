@@ -23,9 +23,64 @@ function toggleLabelIcon(label: HTMLLabelElement, selectedInput: HTMLInputElemen
  * @returns void
  */
 export function updateActiveIcons(selectedInput: HTMLInputElement): void {
-    document
-        .querySelectorAll<HTMLLabelElement>('.settings-screen-option label')
+    const fieldset = selectedInput.closest('.settings-screen-option');
+    if (!fieldset) return;
+
+    fieldset
+        .querySelectorAll<HTMLLabelElement>('label')
         .forEach(label => toggleLabelIcon(label, selectedInput));
+}
+
+/**
+ * Restores the active-icon visibility of a fieldset's labels to match the actually checked input.
+ * @param fieldset - The option fieldset to restore.
+ * @returns void
+ */
+function restoreFieldsetIcons(fieldset: Element): void {
+    const checked = fieldset.querySelector('input[type="radio"]:checked');
+
+    fieldset.querySelectorAll<HTMLLabelElement>('label').forEach(label => {
+        const radio = label.querySelector('input[type="radio"]');
+        const icon = label.querySelector('.active-icon');
+        icon?.classList.toggle('hidden', radio !== checked);
+    });
+}
+
+/**
+ * Shows the active-icon for the hovered label only, hiding it for its fieldset siblings.
+ * @param label - The hovered label.
+ * @param fieldset - The option fieldset containing the label.
+ * @returns void
+ */
+function previewLabelIcon(label: HTMLLabelElement, fieldset: Element): void {
+    fieldset.querySelectorAll<HTMLLabelElement>('label').forEach(sibling => {
+        const icon = sibling.querySelector('.active-icon');
+        icon?.classList.toggle('hidden', sibling !== label);
+    });
+}
+
+/**
+ * Registers hover listeners so that hovering an option previews its selected look,
+ * temporarily overriding the actually selected option until the fieldset is left.
+ * @param fieldset - The option fieldset to wire up.
+ * @returns void
+ */
+function addFieldsetIconHoverListeners(fieldset: Element): void {
+    fieldset.querySelectorAll<HTMLLabelElement>('label').forEach(label => {
+        label.addEventListener('mouseenter', () => previewLabelIcon(label, fieldset));
+    });
+
+    fieldset.addEventListener('mouseleave', () => restoreFieldsetIcons(fieldset));
+}
+
+/**
+ * Initializes hover-preview listeners for the active-icon on all settings fieldsets.
+ * @returns void
+ */
+export function initOptionIconHover(): void {
+    document
+        .querySelectorAll('.settings-screen-option')
+        .forEach(addFieldsetIconHoverListeners);
 }
 
 // ─── Status Bar Labels ────────────────────────────────────────────────────────
@@ -146,10 +201,10 @@ function renderCurrentPlayer(player: string): void {
 
     switch (player) {
         case ('blue'):
-            icon.style.backgroundColor = 'blue';
+            icon.classList.add('blue');
             break;
         case ('orange'):
-            icon.style.backgroundColor = 'orange';
+            icon.classList.add('orange');
             break;
     }
 }
