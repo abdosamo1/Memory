@@ -1,0 +1,66 @@
+@use "../abstract/_main" as *;
+
+#game-screen {
+    @include flex-center;
+    @include full-place;
+    padding: 41px 111px;
+    gap: 54px;
+
+    &.theme-gaming {
+        background-color: $game-dark-background;
+    }
+
+    &.theme-da-projects {
+        background-color: $game-light-background;
+    }
+}
+
+#game-board {
+    @include flex-center;
+    justify-content: flex-start !important;
+    flex-direction: column;
+}
+
+#game-board-header {
+    @include flex-center;
+    justify-content: space-between !important;
+    width: 100%;
+
+    * {
+        color: #1E7594;
+    }
+}
+
+#game-board-content {
+    @include flex-center;
+    @include full-place;
+    flex-direction: column;
+}
+
+#score-board-container {
+    @include flex-center;
+    justify-content: space-between;
+    width: 100%;
+    background: white;
+    padding: 16px;
+    gap: 40px;
+    border-radius: 10px;
+
+    .player1 {
+        color: #EA6900
+    }
+
+    .player2 {
+        color: #097FC5
+    }
+}
+
+.score-board-player {
+    @include flex-center;
+    gap: 4px;
+}
+
+.player-score {
+    font-weight: 700;
+    font-size: 30px;
+}

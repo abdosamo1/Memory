@@ -1,7 +1,7 @@
 export * from './dom';
 export * from './screens';
-export * from './theme';
 export * from './selection';
-export * from './interfaces';
-export * from './templates';
+export * as interfaces from './interfaces';
+export * as templates from './templates';
+export * as themes from './theme';
 

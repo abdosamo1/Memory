@@ -1,6 +1,6 @@
-// ─── Active Icons ─────────────────────────────────────────────────────────────
+import * as app from './index';
 
-import * as interfaces from "./interfaces";
+// ─── Active Icons ─────────────────────────────────────────────────────────────
 
 /**
  * Toggles the active icon for one label based on whether it matches the selected input.
@@ -115,7 +115,7 @@ export function updateSelectionsStatusComplete(allSelected: boolean): void {
 
 // ─── Preview Orchestration ────────────────────────────────────────────────────
 
-export let currentGameConfig: interfaces.GameSettings = {
+export let currentGameConfig: app.interfaces.GameSettings = {
     theme: 'Gaming theme',
     player: 'color',
     size: '0'
@@ -130,6 +130,42 @@ export function applySelection(): void {
 
     if (theme && player && size) {
         setGameState(theme, player, size);
+        renderscoreTheme(theme);
+        renderCurrentPlayer(player);
+        app.themes.applyThemeToGameBoard(theme);
+    }
+}
+
+/**
+ * Renders the player turn icon based on the selected player.
+ * @param player - The selected player value.
+ */
+function renderCurrentPlayer(player: string): void {
+    const icon = document.getElementById('current-player-icon');
+    if (!icon) return;
+
+    switch (player) {
+        case ('blue'):
+            icon.style.backgroundColor = 'blue';
+            break;
+        case ('orange'):
+            icon.style.backgroundColor = 'orange';
+            break;
+    }
+}
+
+/**
+ * Renders the score theme template based on the selected theme.
+ * @param theme - The selected theme identifier ('gaming' | 'da-projects').
+ */
+function renderscoreTheme(theme: string): void {
+    switch (theme) {
+        case (app.themes.themeGaming.name):
+            app.templates.renderscoreThemeTemplate(app.themes.themeGaming.images);
+            break;
+        case (app.themes.themeDaProjects.name):
+            app.templates.renderscoreThemeTemplate(app.themes.themeDaProjects.images);
+            break;
     }
 }
 

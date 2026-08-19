@@ -6,19 +6,12 @@ export interface GameSettings {
 
 export interface GameTheme {
     name: string;
-    font: string;
     images: {
-        cards: URL[];
-        win1: URL;
-        win2?: URL;
-        tie: URL;
-        score1: URL;
-        score2: URL;
-    }
-    colors: {
-        background: string;
-        primary: string;
-        secondary: string;
-        text: string;
+        cards: string[];
+        win1: string;
+        win2?: string;
+        tie: string;
+        score1: string;
+        score2: string;
     }
 }

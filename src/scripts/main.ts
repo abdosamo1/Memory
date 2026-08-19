@@ -22,7 +22,7 @@ function bindStartButtonEvents(): void {
 function bindStartGameButtonEvents(): void {
     const startGameButton = document.getElementById('start-game-button') as HTMLButtonElement;
 
-    startGameButton?.addEventListener('click', () => { app.applySelection(); app.showGameScreen(); app.renderGameBoard(app.theme_gaming); });
+    startGameButton?.addEventListener('click', () => { app.applySelection(); app.showGameScreen(); });
 }
 
 /**
@@ -30,8 +30,8 @@ function bindStartGameButtonEvents(): void {
  * @returns void
  */
 function initThemePreview(): void {
-    app.updateThemeonclick();
-    app.updateThemeonHover();
+    app.themes.updateThemeonclick();
+    app.themes.updateThemeonHover();
 }
 
 /**
