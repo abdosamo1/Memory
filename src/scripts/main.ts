@@ -1,18 +1,18 @@
-import '../styles/main.scss';
-import * as app from './index';
+import "../styles/main.scss";
+import * as app from "./index";
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener("DOMContentLoaded", init);
 
 /**
  * Binds all start-button interaction events (hover + click).
  * @returns void
  */
 function bindStartButtonEvents(): void {
-    const startButton = document.getElementById('start-button');
+  const startButton = document.getElementById("start-button");
 
-    startButton?.addEventListener('mouseenter', app.togglePlayArrows);
-    startButton?.addEventListener('mouseleave', app.togglePlayArrows);
-    startButton?.addEventListener('click', app.showSettingsScreen);
+  startButton?.addEventListener("mouseenter", app.togglePlayArrows);
+  startButton?.addEventListener("mouseleave", app.togglePlayArrows);
+  startButton?.addEventListener("click", app.showSettingsScreen);
 }
 
 /**
@@ -20,9 +20,14 @@ function bindStartButtonEvents(): void {
  * @returns void
  */
 function bindStartGameButtonEvents(): void {
-    const startGameButton = document.getElementById('start-game-button') as HTMLButtonElement;
+  const startGameButton = document.getElementById(
+    "start-game-button",
+  ) as HTMLButtonElement;
 
-    startGameButton?.addEventListener('click', () => { app.applySelection(); app.showGameScreen(); });
+  startGameButton?.addEventListener("click", () => {
+    app.applySelection();
+    app.showGameScreen();
+  });
 }
 
 /**
@@ -30,8 +35,8 @@ function bindStartGameButtonEvents(): void {
  * @returns void
  */
 function initThemePreview(): void {
-    app.themes.updateThemeonclick();
-    app.themes.updateThemeonHover();
+  app.themes.updateThemeonclick();
+  app.themes.updateThemeonHover();
 }
 
 /**
@@ -39,9 +44,10 @@ function initThemePreview(): void {
  * @returns void
  */
 function init(): void {
-    app.initSelection();
-    app.initOptionIconHover();
-    initThemePreview();
-    bindStartButtonEvents();
-    bindStartGameButtonEvents();
+  app.initSelection();
+  app.initOptionIconHover();
+  app.initCardFlip();
+  initThemePreview();
+  bindStartButtonEvents();
+  bindStartGameButtonEvents();
 }

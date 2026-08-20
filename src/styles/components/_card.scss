@@ -3,7 +3,6 @@
 #game-board-content {
   width: auto;
   display: grid;
-  grid-auto-rows: 190px;
   gap: 16px;
 
   &.cards-16 {
@@ -17,14 +16,9 @@
 }
 
 .card {
-  background: #fff;
-  border-radius: 16px;
-}
-
-/* Card styles (default) */
-.card {
+  background: linear-gradient(147.13deg, #ed1b76 1.28%, #0a2835 142.53%);
   height: 120px;
-  width: 100px;
+  width: 105px;
   position: relative;
   border-radius: 16px;
   cursor: pointer;
@@ -35,8 +29,9 @@
   }
 
   &.matched {
-    border: 2px solid $light-main-color;
-    cursor: not-allowed;
+    transform: rotateY(180deg);
+    border: 2px solid $dark-main-color;
+    cursor: default;
   }
 }
 

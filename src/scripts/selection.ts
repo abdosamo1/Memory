@@ -282,3 +282,70 @@ export function initSelection(): void {
     .querySelectorAll<HTMLInputElement>('input[type="radio"]')
     .forEach(addSelectionChangeListener);
 }
+
+/**
+ * selecting a card flipping it over (only nearest card to mouse pointer)
+ * @returns void
+ */
+function cardFlip() {
+  const gameBoard = document.getElementById("game-board-content");
+
+  gameBoard?.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    const flippedCards =
+      document.querySelectorAll<HTMLElement>(".card.flipped");
+    const canFlip =
+      flippedCards.length < 2 &&
+      !target.classList.contains("matched") &&
+      !target.classList.contains("flipped");
+
+    if (canFlip && target.classList.contains("card")) {
+      app.toggleClass(target, "flipped");
+
+      if (
+        document.querySelectorAll<HTMLElement>(".card.flipped").length === 2
+      ) {
+        checkMatch();
+      }
+    }
+  });
+}
+
+/**
+ * Checks if the flipped cards are a match.
+ * @returns void
+ */
+function checkMatch() {
+  const flippedCards = document.querySelectorAll<HTMLElement>(".card.flipped");
+  const notAlreadyMatched =
+    !flippedCards[0].classList.contains("matched") &&
+    !flippedCards[1].classList.contains("matched");
+  const areMatch =
+    flippedCards[0].dataset.value === flippedCards[1].dataset.value;
+
+  notAlreadyMatched && areMatch
+    ? (app.toggleClass(flippedCards[0], "matched"),
+      app.toggleClass(flippedCards[1], "matched"),
+      app.toggleClass(flippedCards[1], "flipped"),
+      app.toggleClass(flippedCards[0], "flipped"))
+    : flipBack(flippedCards);
+}
+
+/**
+ * Flips back the cards that are not a match.
+ * @param cards - The cards to flip back.
+ * @returns void
+ */
+function flipBack(cards: NodeListOf<HTMLElement>): void {
+  setTimeout(() => {
+    cards.forEach((card) => app.toggleClass(card, "flipped"));
+  }, 1000);
+}
+
+/**
+ * Initializes the card flip and match functionality.
+ * @returns void
+ */
+export function initCardFlip() {
+  cardFlip();
+}
