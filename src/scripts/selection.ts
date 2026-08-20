@@ -1,4 +1,4 @@
-import * as app from './index';
+import * as app from "./index";
 
 // ─── Active Icons ─────────────────────────────────────────────────────────────
 
@@ -8,13 +8,16 @@ import * as app from './index';
  * @param selectedInput - The currently selected radio input.
  * @returns void
  */
-function toggleLabelIcon(label: HTMLLabelElement, selectedInput: HTMLInputElement): void {
-    const radio = label.querySelector('input[type="radio"]');
-    const icon = label.querySelector('.active-icon');
+function toggleLabelIcon(
+  label: HTMLLabelElement,
+  selectedInput: HTMLInputElement,
+): void {
+  const radio = label.querySelector('input[type="radio"]');
+  const icon = label.querySelector(".active-icon");
 
-    if (radio && icon) {
-        icon.classList.toggle('hidden', radio !== selectedInput);
-    }
+  if (radio && icon) {
+    icon.classList.toggle("hidden", radio !== selectedInput);
+  }
 }
 
 /**
@@ -23,12 +26,12 @@ function toggleLabelIcon(label: HTMLLabelElement, selectedInput: HTMLInputElemen
  * @returns void
  */
 export function updateActiveIcons(selectedInput: HTMLInputElement): void {
-    const fieldset = selectedInput.closest('.settings-screen-option');
-    if (!fieldset) return;
+  const fieldset = selectedInput.closest(".settings-screen-option");
+  if (!fieldset) return;
 
-    fieldset
-        .querySelectorAll<HTMLLabelElement>('label')
-        .forEach(label => toggleLabelIcon(label, selectedInput));
+  fieldset
+    .querySelectorAll<HTMLLabelElement>("label")
+    .forEach((label) => toggleLabelIcon(label, selectedInput));
 }
 
 /**
@@ -37,13 +40,13 @@ export function updateActiveIcons(selectedInput: HTMLInputElement): void {
  * @returns void
  */
 function restoreFieldsetIcons(fieldset: Element): void {
-    const checked = fieldset.querySelector('input[type="radio"]:checked');
+  const checked = fieldset.querySelector('input[type="radio"]:checked');
 
-    fieldset.querySelectorAll<HTMLLabelElement>('label').forEach(label => {
-        const radio = label.querySelector('input[type="radio"]');
-        const icon = label.querySelector('.active-icon');
-        icon?.classList.toggle('hidden', radio !== checked);
-    });
+  fieldset.querySelectorAll<HTMLLabelElement>("label").forEach((label) => {
+    const radio = label.querySelector('input[type="radio"]');
+    const icon = label.querySelector(".active-icon");
+    icon?.classList.toggle("hidden", radio !== checked);
+  });
 }
 
 /**
@@ -53,10 +56,10 @@ function restoreFieldsetIcons(fieldset: Element): void {
  * @returns void
  */
 function previewLabelIcon(label: HTMLLabelElement, fieldset: Element): void {
-    fieldset.querySelectorAll<HTMLLabelElement>('label').forEach(sibling => {
-        const icon = sibling.querySelector('.active-icon');
-        icon?.classList.toggle('hidden', sibling !== label);
-    });
+  fieldset.querySelectorAll<HTMLLabelElement>("label").forEach((sibling) => {
+    const icon = sibling.querySelector(".active-icon");
+    icon?.classList.toggle("hidden", sibling !== label);
+  });
 }
 
 /**
@@ -66,11 +69,13 @@ function previewLabelIcon(label: HTMLLabelElement, fieldset: Element): void {
  * @returns void
  */
 function addFieldsetIconHoverListeners(fieldset: Element): void {
-    fieldset.querySelectorAll<HTMLLabelElement>('label').forEach(label => {
-        label.addEventListener('mouseenter', () => previewLabelIcon(label, fieldset));
-    });
+  fieldset.querySelectorAll<HTMLLabelElement>("label").forEach((label) => {
+    label.addEventListener("mouseenter", () =>
+      previewLabelIcon(label, fieldset),
+    );
+  });
 
-    fieldset.addEventListener('mouseleave', () => restoreFieldsetIcons(fieldset));
+  fieldset.addEventListener("mouseleave", () => restoreFieldsetIcons(fieldset));
 }
 
 /**
@@ -78,9 +83,9 @@ function addFieldsetIconHoverListeners(fieldset: Element): void {
  * @returns void
  */
 export function initOptionIconHover(): void {
-    document
-        .querySelectorAll('.settings-screen-option')
-        .forEach(addFieldsetIconHoverListeners);
+  document
+    .querySelectorAll(".settings-screen-option")
+    .forEach(addFieldsetIconHoverListeners);
 }
 
 // ─── Status Bar Labels ────────────────────────────────────────────────────────
@@ -91,8 +96,8 @@ export function initOptionIconHover(): void {
  * @returns void
  */
 function updateThemeLabel(theme: string | undefined): void {
-    const el = document.getElementById('selected-theme');
-    if (theme && el) el.textContent = 'Game Theme';
+  const el = document.getElementById("selected-theme");
+  if (theme && el) el.textContent = "Game Theme";
 }
 
 /**
@@ -101,10 +106,10 @@ function updateThemeLabel(theme: string | undefined): void {
  * @returns void
  */
 function updatePlayerLabel(player: string | undefined): void {
-    const el = document.getElementById('selected-player');
-    if (player && el) {
-        el.textContent = player[0].toUpperCase() + player.slice(1) + ' Player';
-    }
+  const el = document.getElementById("selected-player");
+  if (player && el) {
+    el.textContent = player[0].toUpperCase() + player.slice(1) + " Player";
+  }
 }
 
 /**
@@ -113,8 +118,8 @@ function updatePlayerLabel(player: string | undefined): void {
  * @returns void
  */
 function updateSizeLabel(size: string | undefined): void {
-    const el = document.getElementById('selected-size');
-    if (size && el) el.textContent = 'Board-' + size + ' Cards';
+  const el = document.getElementById("selected-size");
+  if (size && el) el.textContent = "Board-" + size + " Cards";
 }
 
 // ─── Status Bar Animation & State ────────────────────────────────────────────
@@ -123,12 +128,12 @@ function updateSizeLabel(size: string | undefined): void {
  * Runs the expand-pulse animation on the selections status bar.
  */
 function triggerStatusAnimation(): void {
-    const status = document.getElementById('selections-status');
-    if (!status) return;
+  const status = document.getElementById("selections-status");
+  if (!status) return;
 
-    status.classList.remove('animate-expand');
-    void status.offsetWidth;
-    status.classList.add('animate-expand');
+  status.classList.remove("animate-expand");
+  void status.offsetWidth;
+  status.classList.add("animate-expand");
 }
 
 /**
@@ -137,10 +142,12 @@ function triggerStatusAnimation(): void {
  * @returns void
  */
 function toggleSplitters(allSelected: boolean): void {
-    document.querySelectorAll<HTMLElement>('.default-splitter')
-        .forEach(s => s.classList.toggle('hidden', allSelected));
-    document.querySelectorAll<HTMLElement>('.active-splitter')
-        .forEach(s => s.classList.toggle('hidden', !allSelected));
+  document
+    .querySelectorAll<HTMLElement>(".default-splitter")
+    .forEach((s) => s.classList.toggle("hidden", allSelected));
+  document
+    .querySelectorAll<HTMLElement>(".active-splitter")
+    .forEach((s) => s.classList.toggle("hidden", !allSelected));
 }
 
 /**
@@ -149,13 +156,15 @@ function toggleSplitters(allSelected: boolean): void {
  * @returns void
  */
 function toggleStartButton(allSelected: boolean): void {
-    const btn = document.getElementById('start-game-button') as HTMLButtonElement | null;
-    const activeIcon = document.getElementById('start-game-active-icon');
-    const disabledIcon = document.getElementById('start-game-disabled-icon');
+  const btn = document.getElementById(
+    "start-game-button",
+  ) as HTMLButtonElement | null;
+  const activeIcon = document.getElementById("start-game-active-icon");
+  const disabledIcon = document.getElementById("start-game-disabled-icon");
 
-    if (btn) btn.disabled = !allSelected;
-    activeIcon?.classList.toggle('hidden', !allSelected);
-    disabledIcon?.classList.toggle('hidden', allSelected);
+  if (btn) btn.disabled = !allSelected;
+  activeIcon?.classList.toggle("hidden", !allSelected);
+  disabledIcon?.classList.toggle("hidden", allSelected);
 }
 
 /**
@@ -164,16 +173,16 @@ function toggleStartButton(allSelected: boolean): void {
  * @returns void
  */
 export function updateSelectionsStatusComplete(allSelected: boolean): void {
-    toggleSplitters(allSelected);
-    toggleStartButton(allSelected);
+  toggleSplitters(allSelected);
+  toggleStartButton(allSelected);
 }
 
 // ─── Preview Orchestration ────────────────────────────────────────────────────
 
 export let currentGameConfig: app.interfaces.GameSettings = {
-    theme: 'Gaming theme',
-    player: 'color',
-    size: '0'
+  theme: "Gaming theme",
+  player: "color",
+  size: "0",
 };
 
 /**
@@ -181,47 +190,15 @@ export let currentGameConfig: app.interfaces.GameSettings = {
  * @returns void
  */
 export function applySelection(): void {
-    const { theme, player, size } = readSelectedValues();
+  const { theme, player, size } = readSelectedValues();
 
-    if (theme && player && size) {
-        setGameState(theme, player, size);
-        renderscoreTheme(theme);
-        renderCurrentPlayer(player);
-        app.themes.applyThemeToGameBoard(theme);
-    }
-}
-
-/**
- * Renders the player turn icon based on the selected player.
- * @param player - The selected player value.
- */
-function renderCurrentPlayer(player: string): void {
-    const icon = document.getElementById('current-player-icon');
-    if (!icon) return;
-
-    switch (player) {
-        case ('blue'):
-            icon.classList.add('blue');
-            break;
-        case ('orange'):
-            icon.classList.add('orange');
-            break;
-    }
-}
-
-/**
- * Renders the score theme template based on the selected theme.
- * @param theme - The selected theme identifier ('gaming' | 'da-projects').
- */
-function renderscoreTheme(theme: string): void {
-    switch (theme) {
-        case (app.themes.themeGaming.name):
-            app.templates.renderscoreThemeTemplate(app.themes.themeGaming.images);
-            break;
-        case (app.themes.themeDaProjects.name):
-            app.templates.renderscoreThemeTemplate(app.themes.themeDaProjects.images);
-            break;
-    }
+  if (theme && player && size) {
+    setGameState(theme, player, size);
+    app.render.renderCurrentPlayer(player);
+    app.render.renderScoreBoard(theme);
+    app.render.renderCards(theme, parseInt(size));
+    app.themes.applyThemeToGameBoard(theme);
+  }
 }
 
 /**
@@ -231,24 +208,38 @@ function renderscoreTheme(theme: string): void {
  * @param size - The selected board size.
  * @returns void
  */
-export function setGameState(theme: string, player: string, size: string): void {
-    currentGameConfig = {
-        theme,
-        player,
-        size
-    };
+export function setGameState(
+  theme: string,
+  player: string,
+  size: string,
+): void {
+  currentGameConfig = {
+    theme,
+    player,
+    size,
+  };
 }
 
 /**
  * Reads the currently checked values for theme, player, and board size.
  * @returns An object containing the three optional values.
  */
-function readSelectedValues(): { theme?: string; player?: string; size?: string } {
-    return {
-        theme: document.querySelector<HTMLInputElement>('input[name="theme"]:checked')?.value,
-        player: document.querySelector<HTMLInputElement>('input[name="player"]:checked')?.value,
-        size: document.querySelector<HTMLInputElement>('input[name="board"]:checked')?.value,
-    };
+function readSelectedValues(): {
+  theme?: string;
+  player?: string;
+  size?: string;
+} {
+  return {
+    theme: document.querySelector<HTMLInputElement>(
+      'input[name="theme"]:checked',
+    )?.value,
+    player: document.querySelector<HTMLInputElement>(
+      'input[name="player"]:checked',
+    )?.value,
+    size: document.querySelector<HTMLInputElement>(
+      'input[name="board"]:checked',
+    )?.value,
+  };
 }
 
 /**
@@ -256,13 +247,13 @@ function readSelectedValues(): { theme?: string; player?: string; size?: string 
  * @returns void
  */
 export function updatePreview(): void {
-    const { theme, player, size } = readSelectedValues();
+  const { theme, player, size } = readSelectedValues();
 
-    updateThemeLabel(theme);
-    updatePlayerLabel(player);
-    updateSizeLabel(size);
-    triggerStatusAnimation();
-    updateSelectionsStatusComplete(Boolean(theme && player && size));
+  updateThemeLabel(theme);
+  updatePlayerLabel(player);
+  updateSizeLabel(size);
+  triggerStatusAnimation();
+  updateSelectionsStatusComplete(Boolean(theme && player && size));
 }
 
 // ─── Initialization ───────────────────────────────────────────────────────────
@@ -273,13 +264,13 @@ export function updatePreview(): void {
  * @returns void
  */
 function addSelectionChangeListener(input: HTMLInputElement): void {
-    input.addEventListener('change', (event) => {
-        const target = event.target as HTMLInputElement;
-        if (target.checked) {
-            updateActiveIcons(target);
-            updatePreview();
-        }
-    });
+  input.addEventListener("change", (event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.checked) {
+      updateActiveIcons(target);
+      updatePreview();
+    }
+  });
 }
 
 /**
@@ -287,7 +278,7 @@ function addSelectionChangeListener(input: HTMLInputElement): void {
  * @returns void
  */
 export function initSelection(): void {
-    document
-        .querySelectorAll<HTMLInputElement>('input[type="radio"]')
-        .forEach(addSelectionChangeListener);
+  document
+    .querySelectorAll<HTMLInputElement>('input[type="radio"]')
+    .forEach(addSelectionChangeListener);
 }

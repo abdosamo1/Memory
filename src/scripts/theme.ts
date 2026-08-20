@@ -2,6 +2,29 @@
 
 import * as interfaces from "./interfaces";
 
+export const themeGaming: interfaces.GameTheme = {
+    name: 'gaming',
+    images: {
+        cards: loadThemeImages('gaming'),
+        win1: 'src/img/dark_theme/win.svg',
+        tie: 'src/img/dark_theme/tie.svg',
+        score1: 'src/img/score1.svg',
+        score2: 'src/img/score2.svg'
+    }
+}
+
+export const themeDaProjects: interfaces.GameTheme = {
+    name: 'da-projects',
+    images: {
+        cards: loadThemeImages('da-projects'),
+        win1: 'src/img/light_theme/win1.svg',
+        win2: 'src/img/light_theme/win2.svg',
+        tie: 'src/img/light_theme/tie.svg',
+        score1: 'src/img/score1.svg',
+        score2: 'src/img/score2.svg'
+    }
+}
+
 /**
  * Applies the gaming theme to the preview images.
  * @param dark - The dark-theme image element.
@@ -107,36 +130,6 @@ export function applyThemeToGameBoard(theme: string): void {
  */
 function loadThemeImages(theme: string): string[] {
     let themeCards: string[] = [];
-    switch (theme) {
-        case 'gaming':
-            for (let i = 1; i <= 18; i++) { themeCards.push('../img/dark_theme/card' + i + '.svg'); }
-            break;
-        case 'da-projects':
-            for (let i = 1; i <= 18; i++) { themeCards.push('../img/light_theme/card' + i + '.svg'); }
-            break;
-    }
+    for (let i = 1; i <= 18; i++) { themeCards.push('../img/' + theme + '/card' + i + '.svg'); }
     return themeCards;
-}
-
-export const themeGaming: interfaces.GameTheme = {
-    name: 'gaming',
-    images: {
-        cards: loadThemeImages('gaming'),
-        win1: 'src/img/dark_theme/win.svg',
-        tie: 'src/img/dark_theme/tie.svg',
-        score1: 'src/img/score1.svg',
-        score2: 'src/img/score2.svg'
-    }
-}
-
-export const themeDaProjects: interfaces.GameTheme = {
-    name: 'da-projects',
-    images: {
-        cards: loadThemeImages('da-projects'),
-        win1: 'src/img/light_theme/win1.svg',
-        win2: 'src/img/light_theme/win2.svg',
-        tie: 'src/img/light_theme/tie.svg',
-        score1: 'src/img/score1.svg',
-        score2: 'src/img/score2.svg'
-    }
 }
