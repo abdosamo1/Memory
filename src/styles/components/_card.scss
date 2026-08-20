@@ -1,0 +1,74 @@
+@use "../abstract/_main" as *;
+
+#game-board-content {
+  width: auto;
+  display: grid;
+  grid-auto-rows: 190px;
+  gap: 16px;
+
+  &.cards-16 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &.cards-24,
+  &.cards-32 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+}
+
+/* Card styles (default) */
+.card {
+  height: 120px;
+  width: 100px;
+  position: relative;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: $primary-transition;
+
+  &.flipped {
+    transform: rotateY(180deg);
+  }
+
+  &.matched {
+    border: 2px solid $light-main-color;
+    cursor: not-allowed;
+  }
+}
+
+/* Card face (hidden by default) */
+.card-face {
+  @include flex-center;
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  background-image: url("../../img/da-projects/front_face.svg");
+  transition: $primary-transition;
+}
+
+/* Card back */
+.card-back {
+  @include flex-center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: $primary-transition;
+  background-color: $light-sec-color;
+}
+
+/* Card front */
+.card-front {
+  @include flex-center;
+  background-color: $light-main-color;
+  transition: $primary-transition;
+
+  img {
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+  }
+}

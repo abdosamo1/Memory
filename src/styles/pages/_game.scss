@@ -1,144 +1,140 @@
 @use "../abstract/_main" as *;
 
 #game-screen {
-    padding: 41px 111px;
-    gap: 54px;
+  padding: 41px 111px;
+  gap: 54px;
 
-    &.theme-gaming {
-        background-color: $game-dark-background;
+  &.theme-gaming {
+    background-color: $game-dark-background;
 
-        #game-board-header {
-            background-color: #FD96C933;
-        }
-
-        * {
-            color: $white-color;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        button {
-            background-color: $dark-main-color;
-            color: $white-color;
-            border: 2px solid #E71C4F;
-
-            &:hover {
-                background-color: $dark-sec-color;
-
-                svg path {
-                    fill: #E71C4F;
-                }
-            }
-        }
+    #game-board-header {
+      background-color: #fd96c933;
     }
-
-    &.theme-da-projects {
-        background-color: $game-light-background;
-
-        * {
-            color: $light-main-color;
-            font-family: 'Figtree', sans-serif;
-        }
-
-        #game-board-header {
-            background-color: #F0F3F4;
-
-            button {
-                background-color: $light-sec-color;
-                color: $light-main-color;
-
-                svg path {
-                    fill: $light-main-color;
-                }
-
-                &:hover {
-                    background-color: $light-main-color;
-                    color: $white-color;
-
-                    svg path {
-                        fill: $white-color;
-                    }
-                }
-            }
-        }
-    }
-}
-
-.game-board {
-    justify-content: flex-start !important;
-}
-
-#game-board-header {
-    @include flex-center;
-    justify-content: space-between !important;
-    width: $width-100;
-    padding: 24px;
-    border-radius: $radius-primary;
 
     * {
-        font-size: 20px;
+      color: $white-color;
+      font-family: "Orbitron", sans-serif;
     }
 
     button {
-        gap: 10px;
-        border-radius: $radius-primary;
-        padding: 12px 20px;
+      background-color: $dark-main-color;
+      color: $white-color;
+      border: 2px solid #e71c4f;
+
+      &:hover {
+        background-color: $dark-sec-color;
+        box-shadow: 3px 3px 5px 0px #2f2e2e33;
+        border-width: 3px;
+
+        svg path {
+          fill: #e71c4f;
+        }
+      }
+    }
+  }
+
+  &.theme-da-projects {
+    background-color: $game-light-background;
+
+    * {
+      color: $light-main-color;
+      font-family: "Figtree", sans-serif;
+    }
+
+    #game-board-header {
+      background-color: #f0f3f4;
+
+      button {
+        background-color: $light-sec-color;
+        color: $light-main-color;
+
+        svg path {
+          fill: $light-main-color;
+        }
 
         &:hover {
-            transform: scale(1);
+          background-color: $light-main-color;
+          color: $white-color;
+
+          svg path {
+            fill: $white-color;
+          }
         }
+      }
     }
+  }
 }
 
-#game-board-content {
-    @include flex-center;
-    @include full-place;
-    flex-direction: column;
+.game-board {
+  justify-content: flex-start !important;
+}
+
+#game-board-header {
+  @include flex-center;
+  justify-content: space-between !important;
+  width: $width-100;
+  padding: 24px;
+  border-radius: $radius-primary;
+
+  * {
+    font-size: 20px;
+  }
+
+  button {
+    gap: 10px;
+    border-radius: $radius-primary;
+    padding: 12px 20px;
+
+    &:hover {
+      transform: scale(1);
+    }
+  }
 }
 
 #score-board-container {
-    @include flex-center;
-    justify-content: space-between;
-    background: white;
-    padding: 16px;
-    gap: 40px;
-    border-radius: $radius-primary;
+  @include flex-center;
+  justify-content: space-between;
+  background: white;
+  padding: 16px;
+  gap: 40px;
+  border-radius: $radius-primary;
 
-    .player1 {
-        color: #EA6900
-    }
+  .player1 {
+    color: #ea6900;
+  }
 
-    .player2 {
-        color: #097FC5
-    }
+  .player2 {
+    color: #097fc5;
+  }
 }
 
 .score-board-player {
-    @include flex-center;
-    gap: 4px;
+  @include flex-center;
+  gap: 4px;
 }
 
 .player-score {
-    font-weight: 700;
-    font-size: 30px;
+  font-weight: 700;
+  font-size: 30px;
 }
 
 #current-player-container {
-    @include flex-center;
-    gap: 18px;
+  @include flex-center;
+  gap: 18px;
 }
 
 #current-player-icon {
-    padding: 6px 10px;
-    width: 40px;
-    height: 40px;
+  padding: 6px 10px;
+  width: 40px;
+  height: 40px;
 
-    &.blue {
-        background-color: #1FAAFC;
-        border-radius: $radius-secondary;
-    }
+  &.blue {
+    background-color: #1faafc;
+    border-radius: $radius-secondary;
+  }
 
-    &.orange {
-        background-color: #EA6900;
-        border-radius: $radius-primary;
-    }
+  &.orange {
+    background-color: #ea6900;
+    border-radius: $radius-primary;
+  }
 }
