@@ -65,6 +65,7 @@
   }
 }
 
+
 .game-board {
   justify-content: flex-start !important;
   gap: 54px;
@@ -89,6 +90,21 @@
     &:hover {
       transform: scale(1);
     }
+  }
+}
+
+#game-board-content {
+  width: auto;
+  display: grid;
+  gap: 16px;
+
+  &.cards-16 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &.cards-24,
+  &.cards-36 {
+    grid-template-columns: repeat(6, 1fr);
   }
 }
 

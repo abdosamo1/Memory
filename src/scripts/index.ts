@@ -6,3 +6,5 @@ export * as templates from './templates';
 export * as render from './render';
 export * as themes from './theme';
 export * as math from "./math";
+export * from "./game";
+export * from "./gameover";

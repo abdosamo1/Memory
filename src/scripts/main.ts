@@ -47,6 +47,7 @@ function init(): void {
   app.initSelection();
   app.initOptionIconHover();
   app.initCardFlip();
+  app.initGameOver();
   initThemePreview();
   bindStartButtonEvents();
   bindStartGameButtonEvents();

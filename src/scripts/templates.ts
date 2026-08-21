@@ -32,7 +32,12 @@ export function cardsTemplate(
     .map(
       (i) => `
         <div class="card" data-value="card-${i}">
-            <img src="${theme.cards[i]}" alt="">
+            <div class="card__inner">
+                <div class="card__face"></div>
+                <div class="card__face card__face--back">
+                    <img class="card__image" src="${theme.cards[i]}" alt="card-image">    
+                </div>
+            </div>
         </div>`,
     )
     .join("");

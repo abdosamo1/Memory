@@ -1,69 +1,109 @@
 @use "../abstract/_main" as *;
 
-#game-board-content {
-  width: auto;
-  display: grid;
-  gap: 16px;
+#game-screen {
 
-  &.cards-16 {
-    grid-template-columns: repeat(4, 1fr);
+  &.theme-gaming {
+    #game-board-content {
+      .card {
+        * {
+          height: 120px;
+          width: 105px;
+          border-radius: 12px;
+        }
+
+        &__face {
+          background: linear-gradient(147.13deg, #ed1b76 1.28%, #0a2835 142.53%);
+
+          &--back {
+            background: $white-color;
+
+            img {
+              height: 70px;
+              width: 70px;
+            }
+          }
+        }
+
+        &.flipped &__inner {
+          background: $white-color;
+        }
+
+        &.matched &__inner {
+          border: 3px solid #ed1b76;
+          box-shadow: 5px 5px 8px 0px #ed1b764d;
+        }
+      }
+
+    }
   }
 
-  &.cards-24,
-  &.cards-32 {
-    grid-template-columns: repeat(6, 1fr);
+  &.theme-da-projects {
+    .card {
+      * {
+        height: 100px;
+        width: 120px;
+        border-radius: 13px;
+      }
+
+      &__face {
+        background-image: url('../../img/da-projects/front_face.svg');
+        background-color: $light-main-color;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        &--back {
+          background: #EAF2F4;
+
+          img {
+            height: 65px;
+            width: 70px;
+          }
+        }
+      }
+
+      &.flipped &__inner {
+        background: #EAF2F4;
+      }
+
+      &.matched &__inner {
+        border: 2px solid $light-main-color;
+      }
+    }
   }
 }
 
+
 .card {
-  background: linear-gradient(147.13deg, #ed1b76 1.28%, #0a2835 142.53%);
-  height: 120px;
-  width: 105px;
-  position: relative;
-  border-radius: 16px;
   cursor: pointer;
   transition: $primary-transition;
 
-  &.flipped {
+  &__inner {
+    position: relative;
+    @include full-place;
+    transition: $primary-transition;
+    transform-style: preserve-3d;
+    border: none;
+    background: transparent;
+  }
+
+  &__face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    transition: $primary-transition;
+
+    &--back {
+      @include flex-center;
+      transform: rotateY(180deg);
+    }
+  }
+
+  &.flipped &__inner {
     transform: rotateY(180deg);
   }
 
-  &.matched {
+  &.matched &__inner {
     transform: rotateY(180deg);
-    border: 2px solid $dark-main-color;
     cursor: default;
-  }
-}
-
-/* Card face (hidden by default) */
-.card-face {
-  @include flex-center;
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  background-image: url("../../img/da-projects/front_face.svg");
-  transition: $primary-transition;
-}
-
-/* Card back */
-.card-back {
-  @include flex-center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: $primary-transition;
-  background-color: $light-sec-color;
-}
-
-/* Card front */
-.card-front {
-  @include flex-center;
-  background-color: $light-main-color;
-  transition: $primary-transition;
-
-  img {
-    object-fit: cover;
-    pointer-events: none;
-    user-select: none;
   }
 }
