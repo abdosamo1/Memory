@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "../abstract/_main" as *;
 
 #game-screen {
@@ -7,13 +8,25 @@
   &.theme-gaming {
     background-color: $game-dark-background;
 
+    * {
+      color: $white-color;
+      font-family: map.get($theme-fonts, "theme1");
+    }
+
     #game-board-header {
       background-color: #fd96c933;
     }
 
-    * {
-      color: $white-color;
-      font-family: "Orbitron", sans-serif;
+    #current-player-icon {
+      &.blue {
+        background-color: $sec-orange-color;
+        border-radius: $radius-secondary;
+      }
+
+      &.orange {
+        background-color: $sec-blue-color;
+        border-radius: $radius-secondary;
+      }
     }
 
     button {
@@ -38,7 +51,7 @@
 
     * {
       color: $light-main-color;
-      font-family: "Figtree", sans-serif;
+      font-family: map.get($theme-fonts, "theme2");
     }
 
     #game-board-header {
@@ -60,6 +73,18 @@
             fill: $white-color;
           }
         }
+      }
+    }
+
+    #current-player-icon {
+      &.blue {
+        background-color: $blue-color;
+        border-radius: $radius-primary;
+      }
+
+      &.orange {
+        background-color: $orange-color;
+        border-radius: $radius-primary;
       }
     }
   }
@@ -117,11 +142,11 @@
   border-radius: $radius-primary;
 
   .player1 {
-    color: #ea6900;
+    color: $orange-color;
   }
 
   .player2 {
-    color: #097fc5;
+    color: $blue-color;
   }
 }
 
@@ -144,14 +169,4 @@
   padding: 6px 10px;
   width: 40px;
   height: 40px;
-
-  &.blue {
-    background-color: #1faafc;
-    border-radius: $radius-secondary;
-  }
-
-  &.orange {
-    background-color: #ea6900;
-    border-radius: $radius-primary;
-  }
 }

@@ -183,6 +183,8 @@ export let currentGameConfig: app.interfaces.GameSettings = {
   theme: "Gaming theme",
   player: "color",
   size: "0",
+  orangePlayerScore: 0,
+  bluePlayerScore: 0,
 };
 
 /**
@@ -208,15 +210,13 @@ export function applySelection(): void {
  * @param size - The selected board size.
  * @returns void
  */
-export function setGameState(
-  theme: string,
-  player: string,
-  size: string,
-): void {
+export function setGameState(theme: string, player: string, size: string): void {
   currentGameConfig = {
     theme,
     player,
     size,
+    orangePlayerScore: 0,
+    bluePlayerScore: 0,
   };
 }
 

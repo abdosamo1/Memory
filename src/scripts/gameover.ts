@@ -5,16 +5,6 @@ import * as app from "./index";
  * 
  * @returns void
  */
-function gameOver() {
-
+export function endTheGame() {
   console.log("Game Over");
-
-}
-
-/**
- * Initializes the game over functionality.
- * @returns void
- */
-export function initGameOver() {
-  gameOver();
 }

@@ -13,3 +13,13 @@ $width-100: 100%;
 $primary-transition: transform 200ms ease-out;
 $scale: scale(1.1);
 $no-scale: scale(1);
+$prim-font: "Almarai", sans-serif;
+$sec-font: "Red Rose", serif;
+$theme-fonts: (
+    "theme1": ("Orbitron", sans-serif),
+    "theme2": ("Figtree", sans-serif)
+);
+$orange-color: #ea6900;
+$blue-color: #097fc5;
+$sec-orange-color: #fc8829;
+$sec-blue-color: #1FAAFC;

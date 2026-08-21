@@ -29,15 +29,69 @@ function cardFlip() {
  */
 function checkMatch() {
   const flippedCards = document.querySelectorAll<HTMLElement>(".card.flipped");
-  const areMatch =
-    flippedCards[0].dataset.value === flippedCards[1].dataset.value;
+  const areMatch = flippedCards[0].dataset.value === flippedCards[1].dataset.value;
+  const scoreElement = document.getElementById("score-board-container");
 
-  areMatch
-    ? flippedCards.forEach((card) => {
-        app.toggleClass(card, "matched");
-        app.toggleClass(card, "flipped");
-      })
-    : flipBack(flippedCards);
+  areMatch ? updateState(flippedCards) : flipBackAndChangeTurn(flippedCards);
+}
+
+/**
+ * Updates the score and checks if the game is won.
+ * @param cards - The cards that were matched.
+ * @returns void
+ */
+function updateState(cards: NodeListOf<HTMLElement>) {
+  matchTheCards(cards);
+  updateScore(app.currentGameConfig.theme);
+  checkWin();
+}
+
+/**
+ * Updates the score based on the current player.
+ * @returns void
+ */
+function updateScore(theme: string) {
+  const currentPlayer = app.currentGameConfig.player;
+
+  currentPlayer === "orange" ? app.currentGameConfig.orangePlayerScore++ : app.currentGameConfig.bluePlayerScore++;
+
+  app.render.renderScoreBoard(theme);
+}
+
+/**
+ * Checks if the game has been won.
+ * @returns void
+ */
+function checkWin() {
+  const matchedCards = document.querySelectorAll<HTMLElement>(".card.matched");
+  const totalCards = document.querySelectorAll<HTMLElement>(".card");
+
+  if (matchedCards.length === totalCards.length) {
+    app.endTheGame();
+  }
+}
+
+/**
+ * Flips back the cards and changes the turn after a delay.
+ * @param cards - The cards to flip back.
+ */
+function flipBackAndChangeTurn(cards: NodeListOf<HTMLElement>) {
+  setTimeout(() => {
+    flipBack(cards);
+    playerTurn();
+  }, 500);
+}
+
+/**
+ * Matches the cards.
+ * @param cards - The cards to match.
+ * @returns void
+ */
+function matchTheCards(cards: NodeListOf<HTMLElement>) {
+  cards.forEach((card) => {
+    app.toggleClass(card, "matched");
+    app.toggleClass(card, "flipped");
+  });
 }
 
 /**
@@ -46,9 +100,7 @@ function checkMatch() {
  * @returns void
  */
 function flipBack(cards: NodeListOf<HTMLElement>): void {
-  setTimeout(() => {
-    cards.forEach((card) => app.toggleClass(card, "flipped"));
-  }, 1000);
+  cards.forEach((card) => app.toggleClass(card, "flipped"));
 }
 
 /**
@@ -64,14 +116,16 @@ export function initCardFlip() {
  * @returns void
  */
 
-export function playerTurn() {
+function playerTurn() {
+  changeTurn();
+  app.render.renderCurrentPlayer(app.currentGameConfig.player);
+}
 
-  let player = "player1";
-
-  if(player === "player1") {
-    player = "player2";
-  } else {
-    player = "player1";
-  }
-
+/**
+ * Changes the current player.
+ * @returns void
+ */
+function changeTurn() {
+  app.currentGameConfig.player =
+    app.currentGameConfig.player === "blue" ? "orange" : "blue";
 }

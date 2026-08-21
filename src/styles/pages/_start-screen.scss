@@ -2,9 +2,10 @@
 
 #start-screen {
     background-color: $main-color;
+
     & p {
         font-size: 48px;
-        font-family: "Almarai", serif;
+        font-family: $prim-font;
     }
 }
 
@@ -13,4 +14,3 @@ h1 {
     font-weight: 800;
     font-weight: bold;
 }
-

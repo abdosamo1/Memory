@@ -24,22 +24,13 @@ export function renderScoreBoard(
  * @param size - number of cards to render (should be an even number)
  * @returns void
  */
-export function renderCards(
-  theme: app.interfaces.GameTheme["name"],
-  size: number,
-): void {
-  const themeImages =
-    theme === "gaming"
-      ? app.themes.themeGaming.images
-      : app.themes.themeDaProjects.images;
+export function renderCards(theme: app.interfaces.GameTheme["name"], size: number): void {
+  const themeImages = theme === "gaming" ? app.themes.themeGaming.images : app.themes.themeDaProjects.images;
   const container = document.getElementById("game-board-content");
   if (!container) return;
 
   const pairCount = size / 2;
-  const cardIndexes = app.math.shuffle([
-    ...Array.from({ length: pairCount }, (_, i) => i),
-    ...Array.from({ length: pairCount }, (_, i) => i),
-  ]);
+  const cardIndexes = app.math.shuffle([...Array.from({ length: pairCount }, (_, i) => i), ...Array.from({ length: pairCount }, (_, i) => i)]);
 
   container.innerHTML = app.templates.cardsTemplate(themeImages, cardIndexes);
   container.classList.add(`cards-${size}`);
@@ -55,9 +46,11 @@ export function renderCurrentPlayer(player: string): void {
 
   switch (player) {
     case "blue":
+      icon.classList.remove("orange");
       icon.classList.add("blue");
       break;
     case "orange":
+      icon.classList.remove("blue");
       icon.classList.add("orange");
       break;
   }

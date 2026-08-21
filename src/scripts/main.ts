@@ -1,8 +1,6 @@
 import "../styles/main.scss";
 import * as app from "./index";
 
-document.addEventListener("DOMContentLoaded", init);
-
 /**
  * Binds all start-button interaction events (hover + click).
  * @returns void
@@ -40,15 +38,17 @@ function initThemePreview(): void {
 }
 
 /**
- * Entry point: initializes all event listeners after the DOM is ready.
+ * Main initialization function. Initializes all event listeners.
  * @returns void
  */
 function init(): void {
   app.initSelection();
   app.initOptionIconHover();
   app.initCardFlip();
-  app.initGameOver();
   initThemePreview();
   bindStartButtonEvents();
   bindStartGameButtonEvents();
 }
+
+
+document.addEventListener("DOMContentLoaded", init);

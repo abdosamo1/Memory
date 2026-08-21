@@ -1,19 +1,19 @@
-import * as interfaces from "./interfaces";
+import * as app from "./index";
 
 /**
  * Builds the score-board HTML markup for the given theme.
  * @param theme - game theme score images
  * @returns HTML string
  */
-export function scoreTemplate(theme: interfaces.GameTheme["images"]): string {
+export function scoreTemplate(theme: app.interfaces.GameTheme["images"]): string {
   return `
         <div id="score-board-player1" class="score-board-player">
             <img src="${theme.score2}" alt="orange pawn">
-            <div id="score-board-player2-score" class="player-score player1">0</div>
+            <div id="score-board-player2-score" class="player-score player1">${app.currentGameConfig.orangePlayerScore}</div>
         </div>
         <div id="score-board-player2" class="score-board-player">
             <img src="${theme.score1}" alt="blue pawn">
-            <div id="score-board-player1-score" class="player-score player2">0</div>
+            <div id="score-board-player1-score" class="player-score player2">${app.currentGameConfig.bluePlayerScore}</div>
         </div>
     `;
 }
@@ -25,7 +25,7 @@ export function scoreTemplate(theme: interfaces.GameTheme["images"]): string {
  * @returns HTML string
  */
 export function cardsTemplate(
-  theme: interfaces.GameTheme["images"],
+  theme: app.interfaces.GameTheme["images"],
   cardIndexes: number[],
 ): string {
   return cardIndexes

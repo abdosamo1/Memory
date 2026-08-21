@@ -2,6 +2,8 @@ export interface GameSettings {
     theme: string;
     player: string;
     size: string;
+    orangePlayerScore: number;
+    bluePlayerScore: number;
 }
 
 export interface GameTheme {
