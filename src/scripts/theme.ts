@@ -6,10 +6,10 @@ export const themeGaming: interfaces.GameTheme = {
   name: "gaming",
   images: {
     cards: loadThemeImages("gaming"),
-    win1: "src/img/gaming/win.svg",
-    tie: "src/img/gaming/tie.svg",
-    score1: "src/img/score1.svg",
-    score2: "src/img/score2.svg",
+    win1: "img/gaming/win.svg",
+    tie: "img/gaming/tie.svg",
+    score1: "img/score1.svg",
+    score2: "img/score2.svg",
   },
 };
 
@@ -17,11 +17,11 @@ export const themeDaProjects: interfaces.GameTheme = {
   name: "da-projects",
   images: {
     cards: loadThemeImages("da-projects"),
-    win1: "src/img/da-projects/win1.svg",
-    win2: "src/img/da-projects/win2.svg",
-    tie: "src/img/da-projects/tie.svg",
-    score1: "src/img/score1.svg",
-    score2: "src/img/score2.svg",
+    win1: "img/da-projects/win1.svg",
+    win2: "img/da-projects/win2.svg",
+    tie: "img/da-projects/tie.svg",
+    score1: "img/score1.svg",
+    score2: "img/score2.svg",
   },
 };
 
@@ -29,8 +29,8 @@ export const themeDaProjects: interfaces.GameTheme = {
  * Maps each theme identifier to its settings-screen preview image.
  */
 export const themePreviewImages: Record<string, string> = {
-  gaming: "./src/img/theme-dark.svg",
-  "da-projects": "./src/img/theme-light.svg",
+  gaming: "./img/theme-dark.svg",
+  "da-projects": "./img/theme-light.svg",
 };
 
 /**
@@ -123,7 +123,7 @@ export function applyThemeToGameBoard(theme: string): void {
 function loadThemeImages(theme: string): string[] {
   let themeCards: string[] = [];
   for (let i = 1; i <= 18; i++) {
-    themeCards.push("src/img/" + theme + "/card" + i + ".svg");
+    themeCards.push("img/" + theme + "/card" + i + ".svg");
   }
   return themeCards;
 }

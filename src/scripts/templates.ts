@@ -15,12 +15,12 @@ export function startScreenTemplate(): string {
                 <h1 id="app">Ready to play?</h1>
             </div>
             <button class="button start-button" id="start-button">
-                <img src="./src/img/stadia_controller (1).png" alt="start" class="start-button-controller">
+                <img src="img/stadia_controller (1).png" alt="start" class="start-button-controller">
                 Play
-                <img src="./src/img/Arrow 1.svg" id="play-arrow" class="play-arrow" alt="arrow">
-                <img src="./src/img/Arrow 2.svg" id="play-arrow-hover" class="play-arrow-hover hidden" alt="arrow">
+                <img src="img/Arrow 1.svg" id="play-arrow" class="play-arrow" alt="arrow">
+                <img src="img/Arrow 2.svg" id="play-arrow-hover" class="play-arrow-hover hidden" alt="arrow">
             </button>
-            <img class="controller" src="./src/img/stadia_controller.png" alt="start" id="start">
+            <img class="controller" src="img/stadia_controller.png" alt="start" id="start">
         </div>
     </section>`;
 }
@@ -38,7 +38,7 @@ function optionLabel(name: string, option: app.interfaces.RadioOption): string {
     return `
                         <label>
                             <input type="radio" name="${name}"${checkedAttr} value="${option.value}"> ${option.label}
-                            <img src="./src/img/active.svg" alt="active choice" class="${iconClass}">
+                            <img src="img/active.svg" alt="active choice" class="${iconClass}">
                         </label>`;
 }
 
@@ -82,8 +82,8 @@ function themePreviewImage(theme: string): string {
  */
 function statusSplitter(): string {
     return `
-                        <img src="./src/img/splitter.svg" alt="splitter" class="default-splitter">
-                        <img class="hidden active-splitter" src="./src/img/splitter2.svg" alt="the other splitter">`;
+                        <img src="img/splitter.svg" alt="splitter" class="default-splitter">
+                        <img class="hidden active-splitter" src="img/splitter2.svg" alt="the other splitter">`;
 }
 
 /**
@@ -108,14 +108,14 @@ export function settingScreenTemplate(): string {
         <div class="section-content setting-screen-content">
             <div class="h2-container">
                 <h2>Settings</h2>
-                <img src="./src/img/underline.svg" alt="underline" class="settings-underline-icon">
+                <img src="img/underline.svg" alt="underline" class="settings-underline-icon">
 
             </div>
             <div class="settings-content">
                 <div class="options-container">
-                    ${optionFieldset("./src/img/palette.svg", "theme", "Game Themes", "theme", app.themeOptions)}
-                    ${optionFieldset("./src/img/chess_pawn.svg", "player", "Choose Player", "player", app.playerOptions)}
-                    ${optionFieldset("./src/img/style.svg", "board icon", "Board Size", "board", app.boardOptions)}
+                    ${optionFieldset("img/palette.svg", "theme", "Game Themes", "theme", app.themeOptions)}
+                    ${optionFieldset("img/chess_pawn.svg", "player", "Choose Player", "player", app.playerOptions)}
+                    ${optionFieldset("img/style.svg", "board icon", "Board Size", "board", app.boardOptions)}
                 </div>
                 <div class="choices-container">
                     <div id="preview-theme">
@@ -126,8 +126,8 @@ export function settingScreenTemplate(): string {
                         ${statusLabel("selected-player", "Player", true)}
                         ${statusLabel("selected-size", "Size", false)}
                         <button class="button" disabled id="start-game-button">
-                            <img class="hidden start-game-active-icon start-button-controller" id="start-game-active-icon" src="./src/img/smart_display.svg" alt="start">
-                            <img id="start-game-disabled-icon" src="./src/img/smart_display_disabled.svg" alt="start" class="start-button-controller">
+                            <img class="hidden start-game-active-icon start-button-controller" id="start-game-active-icon" src="img/smart_display.svg" alt="start">
+                            <img id="start-game-disabled-icon" src="img/smart_display_disabled.svg" alt="start" class="start-button-controller">
                             Start
                         </button>
                     </div>
@@ -149,7 +149,7 @@ export function gameScreenTemplate(): string {
                 <div id="score-board-container" class="score-board-container"></div>
                 <div id="current-player-container" class="current-player-container">
                     <p>Current Player:</p>
-                    <img id="current-player-icon" class="current-player-icon" src="./src/img/chess_pawn_white.svg" alt="white pawn">
+                    <img id="current-player-icon" class="current-player-icon" src="img/chess_pawn_white.svg" alt="white pawn">
                 </div>
                 <button class="button" id="quit-button">
                     <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
