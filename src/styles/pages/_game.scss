@@ -1,93 +1,8 @@
-@use "sass:map";
 @use "../abstract/_main" as *;
 
-#game-screen {
+.game-screen {
   padding: 41px 111px;
   gap: 54px;
-
-  &.theme-gaming {
-    background-color: $game-dark-background;
-
-    * {
-      color: $white-color;
-      font-family: map.get($theme-fonts, "theme1");
-    }
-
-    #game-board-header {
-      background-color: #fd96c933;
-    }
-
-    #current-player-icon {
-      &.blue {
-        background-color: $sec-orange-color;
-        border-radius: $radius-secondary;
-      }
-
-      &.orange {
-        background-color: $sec-blue-color;
-        border-radius: $radius-secondary;
-      }
-    }
-
-    button {
-      background-color: $dark-main-color;
-      color: $white-color;
-      border: 2px solid #e71c4f;
-
-      &:hover {
-        background-color: $dark-sec-color;
-        box-shadow: 3px 3px 5px 0px #2f2e2e33;
-        border-width: 3px;
-
-        svg path {
-          fill: #e71c4f;
-        }
-      }
-    }
-  }
-
-  &.theme-da-projects {
-    background-color: $game-light-background;
-
-    * {
-      color: $light-main-color;
-      font-family: map.get($theme-fonts, "theme2");
-    }
-
-    #game-board-header {
-      background-color: #f0f3f4;
-
-      button {
-        background-color: $light-sec-color;
-        color: $light-main-color;
-
-        svg path {
-          fill: $light-main-color;
-        }
-
-        &:hover {
-          background-color: $light-main-color;
-          color: $white-color;
-
-          svg path {
-            fill: $white-color;
-          }
-        }
-      }
-    }
-
-    #current-player-icon {
-      &.blue {
-        background-color: $blue-color;
-        border-radius: $radius-primary;
-      }
-
-      &.orange {
-        background-color: $orange-color;
-        border-radius: $radius-primary;
-      }
-    }
-  }
 }
 
 
@@ -96,7 +11,7 @@
   gap: 54px;
 }
 
-#game-board-header {
+.game-board-header {
   @include flex-center;
   justify-content: space-between !important;
   width: $width-100;
@@ -118,7 +33,7 @@
   }
 }
 
-#game-board-content {
+.game-board-content {
   width: auto;
   display: grid;
   gap: 16px;
@@ -133,7 +48,7 @@
   }
 }
 
-#score-board-container {
+.score-board-container {
   @include flex-center;
   justify-content: space-between;
   background: white;
@@ -142,17 +57,22 @@
   border-radius: $radius-primary;
 
   .player1 {
-    color: $orange-color;
+    color: $orange-color !important;
   }
 
   .player2 {
-    color: $blue-color;
+    color: $blue-color !important;
   }
 }
 
 .score-board-player {
   @include flex-center;
   gap: 4px;
+
+  img {
+    width: 22px;
+    height: 28px;
+  }
 }
 
 .player-score {
@@ -160,12 +80,12 @@
   font-size: 30px;
 }
 
-#current-player-container {
+.current-player-container {
   @include flex-center;
   gap: 18px;
 }
 
-#current-player-icon {
+.current-player-icon {
   padding: 6px 10px;
   width: 40px;
   height: 40px;

@@ -1,4 +1,5 @@
 import { toggleClass } from './dom';
+import * as app from './index';
 
 // ─── Screen Transitions ───────────────────────────────────────────────────────
 
@@ -46,6 +47,23 @@ export function showGameScreen(): void {
         hideScreen(settingsScreen);
         showScreen(gameScreen);
     }
+}
+
+/**
+ * Transitions from the game screen back to the settings screen, resetting the
+ * settings screen to look as if it was just opened for the first time.
+ * @returns void
+ */
+export function backToSetting(): void {
+    const gameScreen = document.getElementById('game-screen') as HTMLElement;
+    const settingsScreen = document.getElementById('setting-screen') as HTMLElement;
+
+    if (gameScreen && settingsScreen) {
+        hideScreen(gameScreen);
+        showScreen(settingsScreen);
+    }
+
+    app.resetSettingsScreen();
 }
 
 // ─── Start Screen UI ──────────────────────────────────────────────────────────

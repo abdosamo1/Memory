@@ -1,0 +1,66 @@
+@use '../abstract/_main' as *;
+
+.game-board {
+    &::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 300ms ease-out, visibility 300ms ease-out;
+        z-index: 5;
+    }
+
+    &:has(.exit-game:not(.closed))::before {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+}
+
+.exit-game {
+    @include flex-center;
+    flex-direction: column;
+    padding: 40px;
+    gap: 54px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    z-index: 10;
+
+    &.closed {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    p {
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 2%;
+        line-height: 40px;
+    }
+
+    .buttons {
+        @include flex-center;
+        gap: 24px;
+
+        button {
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 2%;
+            line-height: 100%;
+            border-radius: 10px;
+            padding: 12px 20px;
+            border-width: 2px;
+            border-style: solid;
+
+            &:hover {
+                transform: $no-scale;
+            }
+        }
+    }
+}

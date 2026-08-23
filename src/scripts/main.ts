@@ -44,7 +44,10 @@ function initThemePreview(): void {
 function init(): void {
   app.initSelection();
   app.initOptionIconHover();
-  app.initCardFlip();
+  app.cardFlip();
+  app.addQuitEventListener();
+  app.addQuitOverlayOutsideClickListener();
+  app.addQuitOverlayButtonsEventListeners();
   initThemePreview();
   bindStartButtonEvents();
   bindStartGameButtonEvents();

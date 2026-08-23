@@ -256,6 +256,47 @@ export function updatePreview(): void {
   updateSelectionsStatusComplete(Boolean(theme && player && size));
 }
 
+// ─── Reset ────────────────────────────────────────────────────────────────────
+
+/**
+ * Resets the status-bar labels back to their placeholder text.
+ * @returns void
+ */
+function resetStatusLabels(): void {
+  const theme = document.getElementById("selected-theme");
+  const player = document.getElementById("selected-player");
+  const size = document.getElementById("selected-size");
+
+  if (theme) theme.textContent = "Theme";
+  if (player) player.textContent = "Player";
+  if (size) size.textContent = "Size";
+}
+
+/**
+ * Resets the settings screen (selections, active icons, status bar, theme
+ * preview) back to its initial, just-opened state.
+ * @returns void
+ */
+export function resetSettingsScreen(): void {
+  document
+    .querySelectorAll<HTMLInputElement>('input[type="radio"]')
+    .forEach((input) => {
+      input.checked = input.defaultChecked;
+    });
+
+  document
+    .querySelectorAll(".settings-screen-option")
+    .forEach(restoreFieldsetIcons);
+
+  resetStatusLabels();
+  updateSelectionsStatusComplete(false);
+
+  const checkedTheme = document.querySelector<HTMLInputElement>(
+    'input[name="theme"]:checked',
+  )?.value;
+  if (checkedTheme) app.themes.updateThemePreview(checkedTheme);
+}
+
 // ─── Initialization ───────────────────────────────────────────────────────────
 
 /**

@@ -1,0 +1,123 @@
+@use "sass:map";
+@use "../abstract/_main" as *;
+
+.game-screen.theme-da-projects {
+  background-color: $game-light-background;
+
+  * {
+    color: $light-main-color;
+    font-family: map.get($theme-fonts, "theme2");
+  }
+
+  .game-board-header {
+    background-color: #f0f3f4;
+
+    button {
+      background-color: $light-sec-color;
+      color: $light-main-color;
+
+      svg path {
+        fill: $light-main-color;
+      }
+
+      &:hover {
+        background-color: $light-main-color;
+        color: $white-color;
+
+        svg path {
+          fill: $white-color;
+        }
+      }
+    }
+  }
+
+  .current-player-icon {
+    &.blue {
+      background-color: $blue-color;
+      border-radius: $radius-primary;
+    }
+
+    &.orange {
+      background-color: $orange-color;
+      border-radius: $radius-primary;
+    }
+  }
+
+  .card {
+    * {
+      height: 100px;
+      width: 120px;
+      border-radius: 13px;
+    }
+
+    &__inner {
+      transition: transform 300ms ease-out;
+    }
+
+    &__face {
+      background-image: url('../../img/da-projects/front_face.svg');
+      background-color: $light-main-color;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &--back {
+        background: #EAF2F4;
+
+        img {
+          height: 65px;
+          width: 70px;
+        }
+      }
+    }
+
+    &.flipped .card__face {
+      background: #EAF2F4;
+    }
+
+    &.matched .card__face {
+      border: 2px solid $light-main-color;
+    }
+  }
+
+  .exit-game {
+    background: #F0F6F9;
+    transform: translate(-50%, -50%);
+    transition: opacity 300ms ease-out, visibility 300ms ease-out;
+
+    &.closed {
+      transform: translate(-50%, -50%);
+      opacity: 0;
+    }
+
+    p {
+      font-size: 24px;
+      color: $light-main-color;
+    }
+
+    .buttons {
+      button {
+        font-size: 14px;
+        color: $white-color;
+        border-color: $exit-color;
+        background: $exit-color;
+
+        &:hover {
+          border-color: $exit-hover-color;
+          background: $exit-hover-color;
+        }
+
+        &.no-button {
+          border-color: $light-main-color;
+          background: $light-main-color;
+          color: $white-color;
+
+          &:hover {
+            border-color: $light-sec-color;
+            background: $light-sec-color;
+            color: $light-main-color;
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ import * as app from "./index";
  * selecting a card flipping it over (only nearest card to mouse pointer)
  * @returns void
  */
-function cardFlip() {
+export function cardFlip() {
   const gameBoard = document.getElementById("game-board-content");
 
   gameBoard?.addEventListener("click", (event) => {
@@ -41,8 +41,8 @@ function checkMatch() {
  * @returns void
  */
 function updateState(cards: NodeListOf<HTMLElement>) {
-  matchTheCards(cards);
   updateScore(app.currentGameConfig.theme);
+  matchTheCards(cards);
   checkWin();
 }
 
@@ -104,14 +104,6 @@ function flipBack(cards: NodeListOf<HTMLElement>): void {
 }
 
 /**
- * Initializes the card flip and match functionality.
- * @returns void
- */
-export function initCardFlip() {
-  cardFlip();
-}
-
-/**
  * determines player turns
  * @returns void
  */
@@ -129,3 +121,85 @@ function changeTurn() {
   app.currentGameConfig.player =
     app.currentGameConfig.player === "blue" ? "orange" : "blue";
 }
+
+/**
+ * adds event listener to quit button
+ */
+
+export function addQuitEventListener() {
+  const quitButton = document.getElementById("quit-button");
+  quitButton?.addEventListener("click", showQuitOverlay);
+}
+
+/**
+ * shows quit overlay
+ */
+
+function showQuitOverlay() {
+  const quitOverlay = document.getElementById("exit-game");
+  if (quitOverlay) {
+    app.toggleClass(quitOverlay, "closed");
+  }
+  renderbuttons();
+}
+
+/**
+ * renders the buttons texts based on theme
+ */
+
+function renderbuttons() {
+  const noButton = document.getElementById("no-button");
+  const yesButton = document.getElementById("yes-button");
+  if (!noButton || !yesButton) return;
+
+  const theme = app.currentGameConfig.theme;
+  switch (theme) {
+    case "gaming":
+      noButton.textContent = "No, back to game ";
+      yesButton.textContent = "Yes, quit the game";
+      break;
+    case "da-projects":
+      noButton.textContent = "Back to Game";
+      yesButton.textContent = "Exit Game";
+      break;
+  }
+}
+
+/**
+ * closes the quit overlay
+ */
+function closeQuitOverlay(): void {
+  const quitOverlay = document.getElementById("exit-game");
+  quitOverlay?.classList.add("closed");
+}
+
+/**
+ * adds event listeners to the quit overlay's no/yes buttons
+ */
+export function addQuitOverlayButtonsEventListeners() {
+  const noButton = document.getElementById("no-button");
+  const yesButton = document.getElementById("yes-button");
+
+  noButton?.addEventListener("click", closeQuitOverlay);
+  yesButton?.addEventListener("click", () => {
+    closeQuitOverlay();
+    app.backToSetting();
+  });
+}
+
+/**
+ * closes the quit overlay when clicking outside of it
+ */
+export function addQuitOverlayOutsideClickListener() {
+  document.addEventListener("click", (event) => {
+    const quitOverlay = document.getElementById("exit-game");
+    const quitButton = document.getElementById("quit-button");
+    if (!quitOverlay || quitOverlay.classList.contains("closed")) return;
+
+    const target = event.target as HTMLElement;
+    if (!quitOverlay.contains(target) && !quitButton?.contains(target)) {
+      quitOverlay.classList.add("closed");
+    }
+  });
+}
+

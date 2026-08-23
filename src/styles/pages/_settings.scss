@@ -1,6 +1,6 @@
 @use '../abstract/_main.scss' as *;
 
-#setting-screen {
+.setting-screen {
     @include flex-center;
     background-color: $white-color;
 }
@@ -93,7 +93,7 @@
     }
 }
 
-#selections-status {
+.selections-status {
     @include flex-center;
     gap: 16px;
     background: #F6F6F6;
@@ -116,7 +116,7 @@
         gap: 8px;
         cursor: pointer;
 
-        #start-game-active-icon {
+        .start-game-active-icon {
             transition: $primary-transition;
         }
 
@@ -132,7 +132,7 @@
                 transform: scale(1.1);
                 transition: $primary-transition;
 
-                #start-game-active-icon {
+                .start-game-active-icon {
                     transform: rotate(-5.33deg);
                 }
             }

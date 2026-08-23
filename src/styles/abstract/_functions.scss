@@ -1,0 +1,7 @@
+@function font-src($file-name, $format: null) {
+    @if $format {
+        @return url($file-name) format($format);
+    } @else {
+        @return url($file-name);
+    }
+}

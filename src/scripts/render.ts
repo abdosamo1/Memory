@@ -5,13 +5,8 @@ import * as app from "./index";
  * @param theme - game theme name
  * @returns void
  */
-export function renderScoreBoard(
-  theme: app.interfaces.GameTheme["name"],
-): void {
-  const themeImages =
-    theme === "gaming"
-      ? app.themes.themeGaming.images
-      : app.themes.themeDaProjects.images;
+export function renderScoreBoard(theme: app.interfaces.GameTheme["name"]): void {
+  const themeImages = theme === "gaming" ? app.themes.themeGaming.images : app.themes.themeDaProjects.images;
   const container = document.getElementById("score-board-container");
   if (!container) return;
 

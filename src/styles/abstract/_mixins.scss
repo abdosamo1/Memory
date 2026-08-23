@@ -1,3 +1,5 @@
+@use './_functions' as *;
+
 @mixin flex-center {
     display: flex;
     justify-content: center;
@@ -20,13 +22,20 @@
         font-weight: $font-weight;
         font-style: $font-style;
         font-display: swap;
+        src: font-src($file-name, $format);
+    }
+}
 
-        @if $format {
-            src: url($file-name) format($format);
-        }
+@mixin popup-animation {
+    animation: popup 0.5s ease-in-out;
+}
 
-        @else {
-            src: url($file-name);
-        }
+@keyframes popup {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0%);
     }
 }

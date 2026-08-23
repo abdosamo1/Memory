@@ -1,0 +1,109 @@
+@use "sass:map";
+@use "../abstract/_main" as *;
+
+.game-screen.theme-gaming {
+  background-color: $game-dark-background;
+
+  * {
+    color: $white-color;
+    font-family: map.get($theme-fonts, "theme1");
+  }
+
+  .game-board-header {
+    background-color: #fd96c933;
+  }
+
+  .current-player-icon {
+    &.blue {
+      background-color: $sec-blue-color;
+      border-radius: $radius-secondary;
+    }
+
+    &.orange {
+      background-color: $sec-orange-color;
+      border-radius: $radius-secondary;
+    }
+  }
+
+  button {
+    background-color: $dark-main-color;
+    color: $white-color;
+    border: 2px solid #e71c4f;
+
+    &:hover {
+      background-color: $dark-sec-color;
+      box-shadow: 3px 3px 5px 0px #2f2e2e33;
+      border-width: 3px;
+
+      svg path {
+        fill: #e71c4f;
+      }
+    }
+  }
+
+  .game-board-content {
+    .card {
+      * {
+        height: 120px;
+        width: 105px;
+        border-radius: 12px;
+      }
+
+      &__face {
+        background: linear-gradient(147.13deg, #ed1b76 1.28%, #0a2835 142.53%);
+
+        &--back {
+          background: $white-color;
+
+          img {
+            height: 70px;
+            width: 70px;
+          }
+        }
+      }
+
+      &.flipped .card__face {
+        background: $white-color;
+      }
+
+      &.matched .card__face {
+        border: 3px solid #ed1b76;
+        box-shadow: 5px 5px 8px 0px #ed1b764d;
+      }
+    }
+  }
+
+  .exit-game {
+    background: #F0F6F9;
+    transform: translate(-50%, -50%);
+    transition: transform 300ms ease-out, visibility 300ms ease-out;
+
+    &.closed {
+      transform: translate(-50%, -50%) translateY(250%);
+    }
+
+    p {
+      font-size: 28px;
+      color: #294F60;
+    }
+
+    .buttons {
+      button {
+        font-size: 16px;
+        color: #ED1B76;
+
+        &.no-button {
+          border-color: #E71C4F;
+          background: #ED1B76;
+          color: $white-color;
+
+          &:hover {
+            border-color: #ED1B76;
+            background: #ED1B7614;
+            color: #ED1B76;
+          }
+        }
+      }
+    }
+  }
+}
