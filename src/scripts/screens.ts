@@ -95,9 +95,7 @@ export function initSettingsScreen(): void {
     app.themes.updateThemeonclick();
     app.themes.updateThemeonHover();
 
-    const startGameButton = document.getElementById(
-        'start-game-button',
-    ) as HTMLButtonElement | null;
+    const startGameButton = document.getElementById('start-game-button');
 
     startGameButton?.addEventListener('click', () => {
         app.applySelection();

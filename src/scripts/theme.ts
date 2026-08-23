@@ -6,8 +6,8 @@ export const themeGaming: interfaces.GameTheme = {
   name: "gaming",
   images: {
     cards: loadThemeImages("gaming"),
-    win1: "src/img/dark_theme/win.svg",
-    tie: "src/img/dark_theme/tie.svg",
+    win1: "src/img/gaming/win.svg",
+    tie: "src/img/gaming/tie.svg",
     score1: "src/img/score1.svg",
     score2: "src/img/score2.svg",
   },
@@ -17,9 +17,9 @@ export const themeDaProjects: interfaces.GameTheme = {
   name: "da-projects",
   images: {
     cards: loadThemeImages("da-projects"),
-    win1: "src/img/light_theme/win1.svg",
-    win2: "src/img/light_theme/win2.svg",
-    tie: "src/img/light_theme/tie.svg",
+    win1: "src/img/da-projects/win1.svg",
+    win2: "src/img/da-projects/win2.svg",
+    tie: "src/img/da-projects/tie.svg",
     score1: "src/img/score1.svg",
     score2: "src/img/score2.svg",
   },
@@ -28,7 +28,7 @@ export const themeDaProjects: interfaces.GameTheme = {
 /**
  * Maps each theme identifier to its settings-screen preview image.
  */
-const themePreviewImages: Record<string, string> = {
+export const themePreviewImages: Record<string, string> = {
   gaming: "./src/img/theme-dark.svg",
   "da-projects": "./src/img/theme-light.svg",
 };

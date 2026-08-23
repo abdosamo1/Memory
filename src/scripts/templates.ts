@@ -26,46 +26,12 @@ export function startScreenTemplate(): string {
 }
 
 /**
- * Describes one radio option within a settings fieldset.
- */
-interface RadioOption {
-    value: string;
-    label: string;
-    checked?: boolean;
-}
-
-/**
- * Radio options for the "Game Themes" fieldset.
- */
-const themeOptions: RadioOption[] = [
-    { value: "gaming", label: "Gaming theme", checked: true },
-    { value: "da-projects", label: "DA Projects theme" },
-];
-
-/**
- * Radio options for the "Choose Player" fieldset.
- */
-const playerOptions: RadioOption[] = [
-    { value: "blue", label: "Blue" },
-    { value: "orange", label: "Orange" },
-];
-
-/**
- * Radio options for the "Board Size" fieldset.
- */
-const boardOptions: RadioOption[] = [
-    { value: "16", label: "16 cards" },
-    { value: "24", label: "24 cards" },
-    { value: "36", label: "36 cards" },
-];
-
-/**
  * Builds one radio-option label (radio input + text + active-icon).
  * @param name - The radio group's name attribute.
  * @param option - The option's value, label text, and default-checked state.
  * @returns HTML string
  */
-function optionLabel(name: string, option: RadioOption): string {
+function optionLabel(name: string, option: app.interfaces.RadioOption): string {
     const checkedAttr = option.checked ? " checked" : "";
     const iconClass = option.checked ? "active-icon" : "active-icon hidden";
 
@@ -90,7 +56,7 @@ function optionFieldset(
     iconAlt: string,
     legendText: string,
     name: string,
-    options: RadioOption[],
+    options: app.interfaces.RadioOption[],
 ): string {
     return `
                     <fieldset class="settings-screen-option">
@@ -102,20 +68,12 @@ function optionFieldset(
 }
 
 /**
- * Maps each theme identifier to its settings-screen preview image.
- */
-const themePreviewImages: Record<string, string> = {
-  gaming: "./src/img/theme-dark.svg",
-  "da-projects": "./src/img/theme-light.svg",
-};
-
-/**
  * Builds the theme preview image for the given theme.
  * @param theme - The selected theme identifier ('gaming' | 'da-projects').
  * @returns HTML string
  */
 function themePreviewImage(theme: string): string {
-  return `<img id="theme-preview" src="${themePreviewImages[theme]}" alt="theme">`;
+  return `<img id="theme-preview" src="${app.themes.themePreviewImages[theme]}" alt="theme">`;
 }
 
 /**
@@ -155,9 +113,9 @@ export function settingScreenTemplate(): string {
             </div>
             <div class="settings-content">
                 <div class="options-container">
-                    ${optionFieldset("./src/img/palette.svg", "theme", "Game Themes", "theme", themeOptions)}
-                    ${optionFieldset("./src/img/chess_pawn.svg", "player", "Choose Player", "player", playerOptions)}
-                    ${optionFieldset("./src/img/style.svg", "board icon", "Board Size", "board", boardOptions)}
+                    ${optionFieldset("./src/img/palette.svg", "theme", "Game Themes", "theme", app.themeOptions)}
+                    ${optionFieldset("./src/img/chess_pawn.svg", "player", "Choose Player", "player", app.playerOptions)}
+                    ${optionFieldset("./src/img/style.svg", "board icon", "Board Size", "board", app.boardOptions)}
                 </div>
                 <div class="choices-container">
                     <div id="preview-theme">
@@ -257,4 +215,61 @@ export function cardsTemplate(
         </div>`,
         )
         .join("");
+}
+
+// ─── Game Over & Winner Screens ─────────────────────────────────────────────
+
+/**
+ * Builds the (larger-icon) score-board markup shown on the game-over screen.
+ * @param theme - game theme score images
+ * @returns HTML string
+ */
+function gameOverScoreTemplate(theme: app.interfaces.GameTheme["images"]): string {
+    return `
+        <div class="score-board-player">
+            <img src="${theme.score2}" alt="orange pawn">
+            <div class="player-score player1">${app.currentGameConfig.orangePlayerScore}</div>
+        </div>
+        <div class="score-board-player">
+            <img src="${theme.score1}" alt="blue pawn">
+            <div class="player-score player2">${app.currentGameConfig.bluePlayerScore}</div>
+        </div>`;
+}
+
+/**
+ * Builds the game-over screen's HTML markup (title + final score).
+ * @param theme - The current theme identifier ('gaming' | 'da-projects').
+ * @returns HTML string
+ */
+export function gameOverScreenTemplate(theme: string): string {
+    const themeImages = theme === "gaming" ? app.themes.themeGaming.images : app.themes.themeDaProjects.images;
+
+    return `
+    <div class="game-over-screen theme-${theme}">
+        <h3 class="game-over-screen__title">Game Over</h3>
+        <div class="game-over-screen__score">
+            <p>Final Score</p>
+            <div class="score-board-container score-board-container--large">${gameOverScoreTemplate(themeImages)}</div>
+        </div>
+    </div>`;
+}
+
+/**
+ * Builds the winner screen's HTML markup (winner texts, trophy, home button).
+ * @param theme - The current theme identifier ('gaming' | 'da-projects').
+ * @param data - The resolved winner text/trophy content to render.
+ * @returns HTML string
+ */
+export function winnerScreenTemplate(theme: string, data: app.interfaces.WinnerScreenData): string {
+    return `
+    <div class="winner-screen theme-${theme}">
+        <div class="winner-screen__texts">
+            <p class="winner-screen__line1">${data.line1}</p>
+            <p class="winner-screen__line2 ${data.line2Class}">${data.line2}</p>
+        </div>
+        <div class="winner-screen__trophy">
+            <img class="winner-screen__trophy-image ${data.trophyClass}" src="${data.trophySrc}" alt="trophy">
+        </div>
+        <button class="button" id="home-button">Home</button>
+    </div>`;
 }

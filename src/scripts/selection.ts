@@ -1,5 +1,32 @@
 import * as app from "./index";
 
+// ─── Settings Options ─────────────────────────────────────────────────────────
+
+/**
+ * Radio options for the "Game Themes" fieldset.
+ */
+export const themeOptions: app.interfaces.RadioOption[] = [
+  { value: "gaming", label: "Gaming theme", checked: true },
+  { value: "da-projects", label: "DA Projects theme" },
+];
+
+/**
+ * Radio options for the "Choose Player" fieldset.
+ */
+export const playerOptions: app.interfaces.RadioOption[] = [
+  { value: "blue", label: "Blue" },
+  { value: "orange", label: "Orange" },
+];
+
+/**
+ * Radio options for the "Board Size" fieldset.
+ */
+export const boardOptions: app.interfaces.RadioOption[] = [
+  { value: "16", label: "16 cards" },
+  { value: "24", label: "24 cards" },
+  { value: "36", label: "36 cards" },
+];
+
 // ─── Active Icons ─────────────────────────────────────────────────────────────
 
 /**
@@ -236,11 +263,7 @@ export function setGameState(theme: string, player: string, size: string): void 
  * Reads the currently checked values for theme, player, and board size.
  * @returns An object containing the three optional values.
  */
-function readSelectedValues(): {
-  theme?: string;
-  player?: string;
-  size?: string;
-} {
+function readSelectedValues(): { theme?: string; player?: string; size?: string; } {
   return {
     theme: document.querySelector<HTMLInputElement>(
       'input[name="theme"]:checked',
@@ -290,22 +313,14 @@ function resetStatusLabels(): void {
  * @returns void
  */
 export function resetSettingsScreen(): void {
-  document
-    .querySelectorAll<HTMLInputElement>('input[type="radio"]')
-    .forEach((input) => {
-      input.checked = input.defaultChecked;
-    });
+  document.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((input) => { input.checked = input.defaultChecked; });
 
-  document
-    .querySelectorAll(".settings-screen-option")
-    .forEach(restoreFieldsetIcons);
+  document.querySelectorAll(".settings-screen-option").forEach(restoreFieldsetIcons);
 
   resetStatusLabels();
   updateSelectionsStatusComplete(false);
 
-  const checkedTheme = document.querySelector<HTMLInputElement>(
-    'input[name="theme"]:checked',
-  )?.value;
+  const checkedTheme = document.querySelector<HTMLInputElement>('input[name="theme"]:checked')?.value;
   if (checkedTheme) app.themes.updateThemePreview(checkedTheme);
 }
 
@@ -331,8 +346,6 @@ function addSelectionChangeListener(input: HTMLInputElement): void {
  * @returns void
  */
 export function initSelection(): void {
-  document
-    .querySelectorAll<HTMLInputElement>('input[type="radio"]')
-    .forEach(addSelectionChangeListener);
+  document.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach(addSelectionChangeListener);
 }
 

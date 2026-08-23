@@ -30,7 +30,6 @@ export function cardFlip() {
 function checkMatch() {
   const flippedCards = document.querySelectorAll<HTMLElement>(".card.flipped");
   const areMatch = flippedCards[0].dataset.value === flippedCards[1].dataset.value;
-  const scoreElement = document.getElementById("score-board-container");
 
   areMatch ? updateState(flippedCards) : flipBackAndChangeTurn(flippedCards);
 }

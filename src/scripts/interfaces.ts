@@ -17,3 +17,28 @@ export interface GameTheme {
         score2: string;
     }
 }
+
+/**
+ * Describes one radio option within a settings fieldset.
+ */
+export interface RadioOption {
+    value: string;
+    label: string;
+    checked?: boolean;
+}
+
+/**
+ * The winning outcome of a finished game.
+ */
+export type Winner = "blue" | "orange" | "tie";
+
+/**
+ * The resolved content needed to render the winner screen.
+ */
+export interface WinnerScreenData {
+    line1: string;
+    line2: string;
+    line2Class: string;
+    trophySrc: string;
+    trophyClass: string;
+}

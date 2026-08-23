@@ -1,0 +1,59 @@
+@use '../abstract/_main' as *;
+
+@keyframes slide-down {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.game-over-screen,
+.winner-screen {
+    @include flex-center;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    animation: slide-down 500ms ease-out both;
+}
+
+.game-over-screen {
+    z-index: 20;
+    gap: 40px;
+
+    &__score {
+        @include flex-center;
+        flex-direction: column;
+        gap: 16px;
+        height: 104px;
+    }
+}
+
+.score-board-container--large {
+    .score-board-player {
+        gap: 8px;
+    }
+}
+
+.winner-screen {
+    z-index: 21;
+    gap: 64px;
+
+    &__texts {
+        @include flex-center;
+        flex-direction: column;
+    }
+
+    .button {
+        gap: 10px;
+        font-size: 20px;
+        border-radius: $radius-primary;
+        padding: 12px 20px;
+
+        &:hover {
+            transform: $no-scale;
+        }
+    }
+}

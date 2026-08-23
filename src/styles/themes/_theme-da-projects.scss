@@ -120,4 +120,53 @@
       }
     }
   }
+
+  .game-over-screen,
+  .winner-screen {
+    background-color: $light-main-color;
+  }
+
+  .game-over-screen__title {
+    font-size: 130px;
+    font-weight: 800;
+    ;
+    color: #FD5B4F;
+  }
+
+  .game-over-screen__score p {
+    font-size: 40px;
+    color: $white-color;
+  }
+
+  .score-board-container--large .score-board-player img {
+    width: 24px;
+    height: 30px;
+  }
+
+  .winner-screen__line1 {
+    color: $white-color;
+    font-weight: 400;
+    font-size: 40px;
+  }
+
+  .winner-screen__line2 {
+    color: $white-color;
+    font-weight: 700;
+    font-size: 80px;
+
+    &--draw {
+      color: #FD5B4F;
+      font-size: 128px;
+      text-shadow: 0px 4px 4px #00000040;
+    }
+  }
+
+  .winner-screen .button {
+    background-color: $light-sec-color;
+    color: $light-main-color;
+
+    &:hover {
+      background-color: #EAF2F4;
+    }
+  }
 }
