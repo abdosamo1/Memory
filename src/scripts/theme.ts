@@ -26,42 +26,30 @@ export const themeDaProjects: interfaces.GameTheme = {
 };
 
 /**
- * Applies the gaming theme to the preview images.
- * @param dark - The dark-theme image element.
- * @param light - The light-theme image element.
+ * Maps each theme identifier to its settings-screen preview image.
  */
-function applyGamingTheme(dark: HTMLElement, light: HTMLElement): void {
-  dark.classList.remove("hidden");
-  light.classList.add("hidden");
-}
-
-/**
- * Applies the DA-projects theme to the preview images.
- * @param dark - The dark-theme image element.
- * @param light - The light-theme image element.
- */
-function applyDaProjectsTheme(dark: HTMLElement, light: HTMLElement): void {
-  dark.classList.add("hidden");
-  light.classList.remove("hidden");
-}
+const themePreviewImages: Record<string, string> = {
+  gaming: "./src/img/theme-dark.svg",
+  "da-projects": "./src/img/theme-light.svg",
+};
 
 /**
  * Updates the theme preview image based on the given theme value.
  * @param theme - The selected theme identifier ('gaming' | 'da-projects').
+ * @returns void
  */
 export function updateThemePreview(theme: string): void {
-  const dark = document.getElementById("theme-dark");
-  const light = document.getElementById("theme-light");
+  const preview = document.getElementById("theme-preview") as HTMLImageElement | null;
+  if (!preview) return;
 
-  if (!dark || !light) return;
-
-  if (theme === "gaming") applyGamingTheme(dark, light);
-  else if (theme === "da-projects") applyDaProjectsTheme(dark, light);
+  const src = themePreviewImages[theme];
+  if (src) preview.src = src;
 }
 
 /**
  * Registers the change listener for a single theme radio input.
  * @param input - The radio input to listen on.
+ * @returns void
  */
 function addThemeChangeListener(input: HTMLInputElement): void {
   input.addEventListener("change", (event) => {
@@ -72,6 +60,7 @@ function addThemeChangeListener(input: HTMLInputElement): void {
 
 /**
  * Restores the theme preview to the currently checked theme on mouse-leave.
+ * @returns void
  */
 function restoreCheckedThemePreview(): void {
   const checked = document.querySelector<HTMLInputElement>(
@@ -83,6 +72,7 @@ function restoreCheckedThemePreview(): void {
 /**
  * Registers mouseenter/mouseleave listeners for a single theme label.
  * @param input - The radio input whose parent label is targeted.
+ * @returns void
  */
 function addThemeHoverListeners(input: HTMLInputElement): void {
   const label = input.closest("label");
@@ -92,6 +82,7 @@ function addThemeHoverListeners(input: HTMLInputElement): void {
 
 /**
  * Sets up click listeners on all theme radio buttons to update the preview.
+ * @returns void
  */
 export function updateThemeonclick(): void {
   document
@@ -101,6 +92,7 @@ export function updateThemeonclick(): void {
 
 /**
  * Sets up hover listeners on all theme radio labels to update the preview.
+ * @returns void
  */
 export function updateThemeonHover(): void {
   document

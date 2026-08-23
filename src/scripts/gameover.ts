@@ -2,9 +2,10 @@ import * as app from "./index";
 
 
 /**
- * 
+ * Ends the game.
  * @returns void
  */
 export function endTheGame() {
-  console.log("Game Over");
+  console.log(' game over ');
+
 }

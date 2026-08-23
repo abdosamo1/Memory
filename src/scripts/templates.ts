@@ -7,7 +7,7 @@ import * as app from "./index";
  * @returns HTML string
  */
 export function startScreenTemplate(): string {
-  return `
+    return `
     <section id="start-screen" class="start-screen">
         <div class="section-content">
             <div id="start-screen-titles">
@@ -26,11 +26,126 @@ export function startScreenTemplate(): string {
 }
 
 /**
+ * Describes one radio option within a settings fieldset.
+ */
+interface RadioOption {
+    value: string;
+    label: string;
+    checked?: boolean;
+}
+
+/**
+ * Radio options for the "Game Themes" fieldset.
+ */
+const themeOptions: RadioOption[] = [
+    { value: "gaming", label: "Gaming theme", checked: true },
+    { value: "da-projects", label: "DA Projects theme" },
+];
+
+/**
+ * Radio options for the "Choose Player" fieldset.
+ */
+const playerOptions: RadioOption[] = [
+    { value: "blue", label: "Blue" },
+    { value: "orange", label: "Orange" },
+];
+
+/**
+ * Radio options for the "Board Size" fieldset.
+ */
+const boardOptions: RadioOption[] = [
+    { value: "16", label: "16 cards" },
+    { value: "24", label: "24 cards" },
+    { value: "36", label: "36 cards" },
+];
+
+/**
+ * Builds one radio-option label (radio input + text + active-icon).
+ * @param name - The radio group's name attribute.
+ * @param option - The option's value, label text, and default-checked state.
+ * @returns HTML string
+ */
+function optionLabel(name: string, option: RadioOption): string {
+    const checkedAttr = option.checked ? " checked" : "";
+    const iconClass = option.checked ? "active-icon" : "active-icon hidden";
+
+    return `
+                        <label>
+                            <input type="radio" name="${name}"${checkedAttr} value="${option.value}"> ${option.label}
+                            <img src="./src/img/active.svg" alt="active choice" class="${iconClass}">
+                        </label>`;
+}
+
+/**
+ * Builds one settings fieldset (icon + legend + a list of radio options).
+ * @param iconSrc - The legend icon's image source.
+ * @param iconAlt - The legend icon's alt text.
+ * @param legendText - The fieldset's legend text.
+ * @param name - The radio group's name attribute shared by all options.
+ * @param options - The radio options to render.
+ * @returns HTML string
+ */
+function optionFieldset(
+    iconSrc: string,
+    iconAlt: string,
+    legendText: string,
+    name: string,
+    options: RadioOption[],
+): string {
+    return `
+                    <fieldset class="settings-screen-option">
+                        <legend>
+                            <img src="${iconSrc}" alt="${iconAlt}">
+                            ${legendText}
+                        </legend>${options.map((option) => optionLabel(name, option)).join("")}
+                    </fieldset>`;
+}
+
+/**
+ * Maps each theme identifier to its settings-screen preview image.
+ */
+const themePreviewImages: Record<string, string> = {
+  gaming: "./src/img/theme-dark.svg",
+  "da-projects": "./src/img/theme-light.svg",
+};
+
+/**
+ * Builds the theme preview image for the given theme.
+ * @param theme - The selected theme identifier ('gaming' | 'da-projects').
+ * @returns HTML string
+ */
+function themePreviewImage(theme: string): string {
+  return `<img id="theme-preview" src="${themePreviewImages[theme]}" alt="theme">`;
+}
+
+/**
+ * Builds the default/active splitter image pair shown between status labels.
+ * @returns HTML string
+ */
+function statusSplitter(): string {
+    return `
+                        <img src="./src/img/splitter.svg" alt="splitter" class="default-splitter">
+                        <img class="hidden active-splitter" src="./src/img/splitter2.svg" alt="the other splitter">`;
+}
+
+/**
+ * Builds one status-bar label, optionally followed by a splitter.
+ * @param id - The label's element id.
+ * @param text - The label's placeholder text.
+ * @param withSplitter - Whether to append a splitter after the label.
+ * @returns HTML string
+ */
+function statusLabel(id: string, text: string, withSplitter: boolean): string {
+    return `
+                        <p id="${id}">${text}</p>${withSplitter ? statusSplitter() : ""}`;
+}
+
+/**
  * Builds the settings screen's HTML markup.
  * @returns HTML string
  */
 export function settingScreenTemplate(): string {
-  return `
+    return `
     <section class="setting-screen" id="setting-screen">
         <div class="section-content setting-screen-content">
             <div class="h2-container">
@@ -40,72 +155,23 @@ export function settingScreenTemplate(): string {
             </div>
             <div class="settings-content">
                 <div class="options-container">
-                    <fieldset class="settings-screen-option">
-                        <legend>
-                            <img src="./src/img/palette.svg" alt="theme">
-                            Game Themes
-                        </legend>
-                        <label>
-                            <input type="radio" name="theme" checked value="gaming"> Gaming theme
-                            <img src="./src/img/active.svg" alt="active choice" class="active-icon">
-                        </label>
-                        <label>
-                            <input type="radio" name="theme" value="da-projects"> DA Projects theme
-                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
-                        </label>
-                    </fieldset>
-                    <fieldset class="settings-screen-option">
-                        <legend>
-                            <img src="./src/img/chess_pawn.svg" alt="player">
-                            Choose Player
-                        </legend>
-                        <label>
-                            <input type="radio" name="player" value="blue"> Blue
-                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
-                        </label>
-                        <label>
-                            <input type="radio" name="player" value="orange"> Orange
-                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
-                        </label>
-                    </fieldset>
-                    <fieldset class="settings-screen-option">
-                        <legend>
-                            <img src="./src/img/style.svg" alt="board icon">
-                            Board Size
-                        </legend>
-                        <label>
-                            <input type="radio" name="board" value="16"> 16 cards
-                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
-                        </label>
-                        <label>
-                            <input type="radio" name="board" value="24"> 24 cards
-                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
-                        </label>
-                        <label>
-                            <input type="radio" name="board" value="36"> 36 cards
-                            <img src="./src/img/active.svg" alt="active choice" class="active-icon hidden">
-                        </label>
-                    </fieldset>
+                    ${optionFieldset("./src/img/palette.svg", "theme", "Game Themes", "theme", themeOptions)}
+                    ${optionFieldset("./src/img/chess_pawn.svg", "player", "Choose Player", "player", playerOptions)}
+                    ${optionFieldset("./src/img/style.svg", "board icon", "Board Size", "board", boardOptions)}
                 </div>
                 <div class="choices-container">
                     <div id="preview-theme">
-                        <img src="./src/img/theme-dark.svg" id="theme-dark" alt="theme">
-                        <img src="./src/img/theme-light.svg" id="theme-light" class="hidden" alt="theme">
+                        ${themePreviewImage("gaming")}
                     </div>
                     <div id="selections-status" class="selections-status">
-                        <p id="selected-theme">Theme</p>
-                        <img src="./src/img/splitter.svg" alt="splitter" class="default-splitter">
-                        <img class="hidden active-splitter" src="./src/img/splitter2.svg" alt="the other splitter">
-                        <p id="selected-player">Player</p>
-                        <img src="./src/img/splitter.svg" alt="splitter" class="default-splitter">
-                        <img class="hidden active-splitter" src="./src/img/splitter2.svg" alt="the other splitter">
-                        <p id="selected-size">Size</p>
+                        ${statusLabel("selected-theme", "Theme", true)}
+                        ${statusLabel("selected-player", "Player", true)}
+                        ${statusLabel("selected-size", "Size", false)}
                         <button class="button" disabled id="start-game-button">
-                            <img class="hidden start-game-active-icon start-button-controller" id="start-game-active-icon" src="./src/img/smart_display.svg"
-                                alt="start">
-                            <img id="start-game-disabled-icon" src="./src/img/smart_display_disabled.svg" alt="start"
-                                class="start-button-controller">
-                            Start</button>
+                            <img class="hidden start-game-active-icon start-button-controller" id="start-game-active-icon" src="./src/img/smart_display.svg" alt="start">
+                            <img id="start-game-disabled-icon" src="./src/img/smart_display_disabled.svg" alt="start" class="start-button-controller">
+                            Start
+                        </button>
                     </div>
                 </div>
             </div>
@@ -118,7 +184,7 @@ export function settingScreenTemplate(): string {
  * @returns HTML string
  */
 export function gameScreenTemplate(): string {
-  return `
+    return `
     <section id="game-screen" class="game-screen">
         <div class="section-content game-board">
             <div id="game-board-header" class="game-board-header">
@@ -156,7 +222,7 @@ export function gameScreenTemplate(): string {
  * @returns HTML string
  */
 export function scoreTemplate(theme: app.interfaces.GameTheme["images"]): string {
-  return `
+    return `
         <div id="score-board-player1" class="score-board-player">
             <img src="${theme.score2}" alt="orange pawn">
             <div id="score-board-player2-score" class="player-score player1">${app.currentGameConfig.orangePlayerScore}</div>
@@ -175,12 +241,12 @@ export function scoreTemplate(theme: app.interfaces.GameTheme["images"]): string
  * @returns HTML string
  */
 export function cardsTemplate(
-  theme: app.interfaces.GameTheme["images"],
-  cardIndexes: number[],
+    theme: app.interfaces.GameTheme["images"],
+    cardIndexes: number[],
 ): string {
-  return cardIndexes
-    .map(
-      (i) => `
+    return cardIndexes
+        .map(
+            (i) => `
         <div class="card" data-value="card-${i}">
             <div class="card__inner">
                 <div class="card__face"></div>
@@ -189,6 +255,6 @@ export function cardsTemplate(
                 </div>
             </div>
         </div>`,
-    )
-    .join("");
+        )
+        .join("");
 }

@@ -126,6 +126,7 @@ function updateSizeLabel(size: string | undefined): void {
 
 /**
  * Runs the expand-pulse animation on the selections status bar.
+ * @returns void
  */
 function triggerStatusAnimation(): void {
   const status = document.getElementById("selections-status");

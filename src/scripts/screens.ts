@@ -3,27 +3,29 @@ import * as app from './index';
 
 // ─── Screen Mounting ──────────────────────────────────────────────────────────
 
+/**
+ * The three mountable screens.
+ */
 type ScreenName = 'start' | 'settings' | 'game';
 
+/**
+ * Maps each screen name to its HTML-markup-generating template function.
+ */
 const screenTemplates: Record<ScreenName, () => string> = {
     start: app.templates.startScreenTemplate,
     settings: app.templates.settingScreenTemplate,
     game: app.templates.gameScreenTemplate,
 };
 
+/**
+ * Maps each screen name to its event-binding initializer, run after mount.
+ */
 const screenInitializers: Record<ScreenName, () => void> = {
     start: () => initStartScreen(),
     settings: () => initSettingsScreen(),
     game: () => initGameScreen(),
 };
 
-/**
- * Renders the given screen's markup into the #app-view mount point,
- * replacing whatever screen is currently mounted, then runs that screen's
- * event-binding initializer.
- * @param name - The screen to render ('start' | 'settings' | 'game').
- * @returns void
- */
 /**
  * Renders the given screen's markup into the #app-view mount point,
  * replacing whatever screen is currently mounted, then runs that screen's

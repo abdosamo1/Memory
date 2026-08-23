@@ -48,6 +48,7 @@ function updateState(cards: NodeListOf<HTMLElement>) {
 
 /**
  * Updates the score based on the current player.
+ * @param theme - The current game theme.
  * @returns void
  */
 function updateScore(theme: string) {
@@ -74,6 +75,7 @@ function checkWin() {
 /**
  * Flips back the cards and changes the turn after a delay.
  * @param cards - The cards to flip back.
+ * @returns void
  */
 function flipBackAndChangeTurn(cards: NodeListOf<HTMLElement>) {
   setTimeout(() => {
@@ -104,10 +106,9 @@ function flipBack(cards: NodeListOf<HTMLElement>): void {
 }
 
 /**
- * determines player turns
+ * Determines player turns.
  * @returns void
  */
-
 function playerTurn() {
   changeTurn();
   app.render.renderCurrentPlayer(app.currentGameConfig.player);
@@ -123,18 +124,18 @@ function changeTurn() {
 }
 
 /**
- * adds event listener to quit button
+ * Adds event listener to quit button.
+ * @returns void
  */
-
 export function addQuitEventListener() {
   const quitButton = document.getElementById("quit-button");
   quitButton?.addEventListener("click", showQuitOverlay);
 }
 
 /**
- * shows quit overlay
+ * Shows quit overlay.
+ * @returns void
  */
-
 function showQuitOverlay() {
   const quitOverlay = document.getElementById("exit-game");
   if (quitOverlay) {
@@ -144,9 +145,9 @@ function showQuitOverlay() {
 }
 
 /**
- * renders the buttons texts based on theme
+ * Renders the buttons texts based on theme.
+ * @returns void
  */
-
 function renderbuttons() {
   const noButton = document.getElementById("no-button");
   const yesButton = document.getElementById("yes-button");
@@ -166,7 +167,8 @@ function renderbuttons() {
 }
 
 /**
- * closes the quit overlay
+ * Closes the quit overlay.
+ * @returns void
  */
 function closeQuitOverlay(): void {
   const quitOverlay = document.getElementById("exit-game");
@@ -174,7 +176,8 @@ function closeQuitOverlay(): void {
 }
 
 /**
- * adds event listeners to the quit overlay's no/yes buttons
+ * Adds event listeners to the quit overlay's no/yes buttons.
+ * @returns void
  */
 export function addQuitOverlayButtonsEventListeners() {
   const noButton = document.getElementById("no-button");
@@ -188,7 +191,8 @@ export function addQuitOverlayButtonsEventListeners() {
 }
 
 /**
- * closes the quit overlay when clicking outside of it
+ * Closes the quit overlay when clicking outside of it.
+ * @returns void
  */
 export function addQuitOverlayOutsideClickListener() {
   document.addEventListener("click", (event) => {

@@ -34,6 +34,7 @@ export function renderCards(theme: app.interfaces.GameTheme["name"], size: numbe
 /**
  * Renders the player turn icon based on the selected player.
  * @param player - The selected player value.
+ * @returns void
  */
 export function renderCurrentPlayer(player: string): void {
   const icon = document.getElementById("current-player-icon");
