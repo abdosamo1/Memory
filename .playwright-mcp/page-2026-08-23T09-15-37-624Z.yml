@@ -1,9 +1,0 @@
-- generic [ref=e3]:
-  - generic [ref=e4]:
-    - paragraph [ref=e5]: It’s play time.
-    - heading "Ready to play?" [level=1] [ref=e6]
-  - button [ref=e7] [cursor=pointer]:
-    - img "start" [ref=e8]
-    - text: Play
-    - img "arrow" [ref=e9]
-  - img "start" [ref=e10]
