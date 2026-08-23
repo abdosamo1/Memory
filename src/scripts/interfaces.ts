@@ -34,6 +34,17 @@ export interface RadioOption {
 }
 
 /**
+ * Configuration for building one settings fieldset (icon + legend + radio options).
+ */
+export interface OptionFieldsetConfig {
+    iconSrc: string;
+    iconAlt: string;
+    legendText: string;
+    name: string;
+    options: RadioOption[];
+}
+
+/**
  * The winning outcome of a finished game.
  */
 export type Winner = "blue" | "orange" | "tie";

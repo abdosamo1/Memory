@@ -40,7 +40,6 @@ export const themePreviewImages: Record<string, string> = {
 /**
  * Updates the theme preview image based on the given theme value.
  * @param theme - The selected theme identifier ('gaming' | 'da-projects').
- * @returns void
  */
 export function updateThemePreview(theme: string): void {
   const preview = document.getElementById("theme-preview") as HTMLImageElement | null;
@@ -53,7 +52,6 @@ export function updateThemePreview(theme: string): void {
 /**
  * Registers the change listener for a single theme radio input.
  * @param input - The radio input to listen on.
- * @returns void
  */
 function addThemeChangeListener(input: HTMLInputElement): void {
   input.addEventListener("change", (event) => {
@@ -64,7 +62,6 @@ function addThemeChangeListener(input: HTMLInputElement): void {
 
 /**
  * Restores the theme preview to the currently checked theme on mouse-leave.
- * @returns void
  */
 function restoreCheckedThemePreview(): void {
   const checked = document.querySelector<HTMLInputElement>(
@@ -76,7 +73,6 @@ function restoreCheckedThemePreview(): void {
 /**
  * Registers mouseenter/mouseleave listeners for a single theme label.
  * @param input - The radio input whose parent label is targeted.
- * @returns void
  */
 function addThemeHoverListeners(input: HTMLInputElement): void {
   const label = input.closest("label");
@@ -86,7 +82,6 @@ function addThemeHoverListeners(input: HTMLInputElement): void {
 
 /**
  * Sets up click listeners on all theme radio buttons to update the preview.
- * @returns void
  */
 export function updateThemeonclick(): void {
   document
@@ -96,7 +91,6 @@ export function updateThemeonclick(): void {
 
 /**
  * Sets up hover listeners on all theme radio labels to update the preview.
- * @returns void
  */
 export function updateThemeonHover(): void {
   document
@@ -109,7 +103,6 @@ export function updateThemeonHover(): void {
 /**
  * Applies the selected theme to the game board by adding the appropriate CSS class.
  * @param theme - The selected theme identifier ('gaming' | 'da-projects').
- * @returns void
  */
 export function applyThemeToGameBoard(theme: string): void {
   const gameScreen = document.getElementById("game-screen");

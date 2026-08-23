@@ -4,7 +4,6 @@ import * as app from "./index";
 
 /**
  * selecting a card flipping it over (only nearest card to mouse pointer)
- * @returns void
  */
 export function cardFlip() {
   const gameBoard = document.getElementById("game-board-content");
@@ -20,7 +19,6 @@ export function cardFlip() {
 /**
  * Tries to flip a card if it's a valid move.
  * @param card - The card to flip.
- * @returns void
  */
 function tryFlipping(card: HTMLElement) {
   const flippedCards = document.querySelectorAll<HTMLElement>(".card.flipped");
@@ -31,7 +29,6 @@ function tryFlipping(card: HTMLElement) {
 
 /**
  * Checks if the flipped cards are a match.
- * @returns void
  */
 function checkMatch() {
   const flippedCards = document.querySelectorAll<HTMLElement>(".card.flipped");
@@ -43,7 +40,6 @@ function checkMatch() {
 /**
  * Updates the score and checks if the game is won.
  * @param cards - The cards that were matched.
- * @returns void
  */
 function updateState(cards: NodeListOf<HTMLElement>) {
   updateScore(app.currentGameConfig.theme);
@@ -54,7 +50,6 @@ function updateState(cards: NodeListOf<HTMLElement>) {
 /**
  * Updates the score based on the current player.
  * @param theme - The current game theme.
- * @returns void
  */
 function updateScore(theme: string) {
   const currentPlayer = app.currentGameConfig.player;
@@ -66,7 +61,6 @@ function updateScore(theme: string) {
 
 /**
  * Checks if the game has been won.
- * @returns void
  */
 function checkWin() {
   const matchedCards = document.querySelectorAll<HTMLElement>(".card.matched");
@@ -80,7 +74,6 @@ function checkWin() {
 /**
  * Flips back the cards and changes the turn after a delay.
  * @param cards - The cards to flip back.
- * @returns void
  */
 function flipBackAndChangeTurn(cards: NodeListOf<HTMLElement>) {
   setTimeout(() => {
@@ -92,7 +85,6 @@ function flipBackAndChangeTurn(cards: NodeListOf<HTMLElement>) {
 /**
  * Matches the cards.
  * @param cards - The cards to match.
- * @returns void
  */
 function matchTheCards(cards: NodeListOf<HTMLElement>) {
   cards.forEach((card) => {
@@ -104,7 +96,6 @@ function matchTheCards(cards: NodeListOf<HTMLElement>) {
 /**
  * Flips back the cards that are not a match.
  * @param cards - The cards to flip back.
- * @returns void
  */
 function flipBack(cards: NodeListOf<HTMLElement>): void {
   cards.forEach((card) => app.toggleClass(card, "flipped"));
@@ -112,7 +103,6 @@ function flipBack(cards: NodeListOf<HTMLElement>): void {
 
 /**
  * Determines player turns.
- * @returns void
  */
 function playerTurn() {
   changeTurn();
@@ -121,7 +111,6 @@ function playerTurn() {
 
 /**
  * Changes the current player.
- * @returns void
  */
 function changeTurn() {
   app.currentGameConfig.player =
@@ -130,7 +119,6 @@ function changeTurn() {
 
 /**
  * Adds event listener to quit button.
- * @returns void
  */
 export function addQuitEventListener() {
   const quitButton = document.getElementById("quit-button");
@@ -139,7 +127,6 @@ export function addQuitEventListener() {
 
 /**
  * Shows quit overlay.
- * @returns void
  */
 function showQuitOverlay() {
   const quitOverlay = document.getElementById("exit-game");
@@ -151,29 +138,42 @@ function showQuitOverlay() {
 
 /**
  * Renders the buttons texts based on theme.
- * @returns void
  */
 function renderbuttons() {
-  const noButton = document.getElementById("no-button");
-  const yesButton = document.getElementById("yes-button");
-  if (!noButton || !yesButton) return;
-
   const theme = app.currentGameConfig.theme;
-  switch (theme) {
-    case "gaming":
-      noButton.textContent = "No, back to game ";
-      yesButton.textContent = "Yes, quit the game";
-      break;
-    case "da-projects":
-      noButton.textContent = "Back to Game";
-      yesButton.textContent = "Exit Game";
-      break;
+  if (theme === "gaming") {
+    gamingThemeButtons();
+  } else {
+    daThemeButtons();
   }
 }
 
 /**
+ * Renders the buttons texts based on theme.
+ */
+function gamingThemeButtons() {
+  const noButton = document.getElementById("no-button");
+  const yesButton = document.getElementById("yes-button");
+  if (!noButton || !yesButton) return;
+
+  noButton.textContent = "No, back to game ";
+  yesButton.textContent = "Yes, quit the game";
+}
+
+/**
+ * Renders the buttons texts based on theme.
+ */
+function daThemeButtons() {
+  const noButton = document.getElementById("no-button");
+  const yesButton = document.getElementById("yes-button");
+  if (!noButton || !yesButton) return;
+
+  noButton.textContent = "Back to Game";
+  yesButton.textContent = "Exit Game";
+}
+
+/**
  * Closes the quit overlay.
- * @returns void
  */
 function closeQuitOverlay(): void {
   const quitOverlay = document.getElementById("exit-game");
@@ -182,7 +182,6 @@ function closeQuitOverlay(): void {
 
 /**
  * Adds event listeners to the quit overlay's no/yes buttons.
- * @returns void
  */
 export function addQuitOverlayButtonsEventListeners() {
   const noButton = document.getElementById("no-button");
@@ -197,7 +196,6 @@ export function addQuitOverlayButtonsEventListeners() {
 
 /**
  * Closes the quit overlay when clicking outside of it.
- * @returns void
  */
 export function addQuitOverlayOutsideClickListener() {
   document.addEventListener("click", (event) => {

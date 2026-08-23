@@ -31,7 +31,6 @@ const screenInitializers: Record<ScreenName, () => void> = {
  * replacing whatever screen is currently mounted, then runs that screen's
  * event-binding initializer.
  * @param name - The screen to render ('start' | 'settings' | 'game').
- * @returns void
  */
 export function renderScreen(name: ScreenName): void {
     const mount = document.getElementById('app-view');
@@ -46,7 +45,6 @@ export function renderScreen(name: ScreenName): void {
 /**
  * Transitions from the game screen back to the settings screen, resetting the
  * settings screen to look as if it was just opened for the first time.
- * @returns void
  */
 export function backToSetting(): void {
     renderScreen('settings');
@@ -57,7 +55,6 @@ export function backToSetting(): void {
 
 /**
  * Toggles both play-arrow icons between their default and hover states.
- * @returns void
  */
 export function togglePlayArrows(): void {
     const playArrow = document.getElementById('play-arrow');
@@ -72,7 +69,6 @@ export function togglePlayArrows(): void {
 /**
  * Binds the start screen's event listeners (play-arrow hover, start click).
  * Runs after the start screen template is mounted.
- * @returns void
  */
 export function initStartScreen(): void {
     const startButton = document.getElementById('start-button');
@@ -87,7 +83,6 @@ export function initStartScreen(): void {
 /**
  * Binds the settings screen's event listeners (options, theme preview, start
  * game button). Runs after the settings screen template is mounted.
- * @returns void
  */
 export function initSettingsScreen(): void {
     app.initSelection();
@@ -109,7 +104,6 @@ export function initSettingsScreen(): void {
 /**
  * Binds the game screen's event listeners (card flip, quit button, quit
  * overlay buttons). Runs after the game screen template is mounted.
- * @returns void
  */
 export function initGameScreen(): void {
     app.cardFlip();

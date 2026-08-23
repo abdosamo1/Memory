@@ -40,7 +40,6 @@ export let currentGameConfig: app.interfaces.GameSettings = {
  * Toggles the active icon for one label based on whether it matches the selected input.
  * @param label - The label element to check.
  * @param selectedInput - The currently selected radio input.
- * @returns void
  */
 function toggleLabelIcon(
   label: HTMLLabelElement,
@@ -57,7 +56,6 @@ function toggleLabelIcon(
 /**
  * Updates the active-icon visibility for all radio labels.
  * @param selectedInput - The currently selected radio input element.
- * @returns void
  */
 export function updateActiveIcons(selectedInput: HTMLInputElement): void {
   const fieldset = selectedInput.closest(".settings-screen-option");
@@ -69,13 +67,11 @@ export function updateActiveIcons(selectedInput: HTMLInputElement): void {
 }
 
 /**
- * Restores the active-icon visibility of a fieldset's labels to match the actually checked input.
+ * Restores the active-icon visibility of a fieldset's labels to match the given checked input.
  * @param fieldset - The option fieldset to restore.
- * @returns void
+ * @param checked - The radio input that should appear selected, if any.
  */
-function restoreFieldsetIcons(fieldset: Element): void {
-  const checked = fieldset.querySelector('input[type="radio"]:checked');
-
+function restoreFieldsetIcons(fieldset: Element, checked: Element | null): void {
   fieldset.querySelectorAll<HTMLLabelElement>("label").forEach((label) => {
     const radio = label.querySelector('input[type="radio"]');
     const icon = label.querySelector(".active-icon");
@@ -87,7 +83,6 @@ function restoreFieldsetIcons(fieldset: Element): void {
  * Shows the active-icon for the hovered label only, hiding it for its fieldset siblings.
  * @param label - The hovered label.
  * @param fieldset - The option fieldset containing the label.
- * @returns void
  */
 function previewLabelIcon(label: HTMLLabelElement, fieldset: Element): void {
   fieldset.querySelectorAll<HTMLLabelElement>("label").forEach((sibling) => {
@@ -97,24 +92,79 @@ function previewLabelIcon(label: HTMLLabelElement, fieldset: Element): void {
 }
 
 /**
- * Registers hover listeners so that hovering an option previews its selected look,
- * temporarily overriding the actually selected option until the fieldset is left.
+ * Holds, per fieldset, the radio input that was actually chosen before a hover
+ * preview started overriding it (or null if none was chosen yet).
+ */
+const lastCheckedByFieldset = new WeakMap<Element, HTMLInputElement | null>();
+
+/**
+ * Records the actually checked input of a fieldset, so it can be restored later.
+ * @param fieldset - The option fieldset to record.
+ */
+function recordActualChecked(fieldset: Element): void {
+  const checked = fieldset.querySelector<HTMLInputElement>('input[type="radio"]:checked');
+  lastCheckedByFieldset.set(fieldset, checked);
+}
+
+/**
+ * Previews a radio input as checked without firing a "change" event or
+ * persisting the selection, so hovering only affects the visual state.
+ * @param label - The hovered label whose radio should be previewed as checked.
+ * @param fieldset - The option fieldset containing the label.
+ */
+function previewLabelChecked(label: HTMLLabelElement, fieldset: Element): void {
+  const radio = label.querySelector<HTMLInputElement>('input[type="radio"]');
+  if (!radio || radio.checked) return;
+
+  if (!lastCheckedByFieldset.has(fieldset)) {
+    recordActualChecked(fieldset);
+  }
+
+  radio.checked = true;
+  previewLabelIcon(label, fieldset);
+}
+
+/**
+ * Restores a fieldset's radio input (and active icons) back to the option that
+ * was actually chosen before hovering started.
+ * @param fieldset - The option fieldset to restore.
+ */
+function restoreFieldsetChecked(fieldset: Element): void {
+  if (!lastCheckedByFieldset.has(fieldset)) return;
+
+  const actualChecked = lastCheckedByFieldset.get(fieldset) ?? null;
+  lastCheckedByFieldset.delete(fieldset);
+
+  const currentlyChecked = fieldset.querySelector<HTMLInputElement>('input[type="radio"]:checked');
+  if (currentlyChecked !== actualChecked) {
+    if (actualChecked) {
+      actualChecked.checked = true;
+    } else if (currentlyChecked) {
+      currentlyChecked.checked = false;
+    }
+  }
+
+  restoreFieldsetIcons(fieldset, actualChecked);
+}
+
+/**
+ * Registers hover listeners so that hovering an option previews it as selected
+ * (radio + icon), reverting to the actually chosen option once the fieldset is
+ * left without a real selection being made.
  * @param fieldset - The option fieldset to wire up.
- * @returns void
  */
 function addFieldsetIconHoverListeners(fieldset: Element): void {
   fieldset.querySelectorAll<HTMLLabelElement>("label").forEach((label) => {
     label.addEventListener("mouseenter", () =>
-      previewLabelIcon(label, fieldset),
+      previewLabelChecked(label, fieldset),
     );
   });
 
-  fieldset.addEventListener("mouseleave", () => restoreFieldsetIcons(fieldset));
+  fieldset.addEventListener("mouseleave", () => restoreFieldsetChecked(fieldset));
 }
 
 /**
  * Initializes hover-preview listeners for the active-icon on all settings fieldsets.
- * @returns void
  */
 export function initOptionIconHover(): void {
   document
@@ -127,7 +177,6 @@ export function initOptionIconHover(): void {
 /**
  * Updates the theme label text inside the status bar.
  * @param theme - The selected theme value, or undefined if not selected.
- * @returns void
  */
 function updateThemeLabel(theme: string | undefined): void {
   const el = document.getElementById("selected-theme");
@@ -137,7 +186,6 @@ function updateThemeLabel(theme: string | undefined): void {
 /**
  * Updates the player label text inside the status bar.
  * @param player - The selected player value, or undefined if not selected.
- * @returns void
  */
 function updatePlayerLabel(player: string | undefined): void {
   const el = document.getElementById("selected-player");
@@ -149,7 +197,6 @@ function updatePlayerLabel(player: string | undefined): void {
 /**
  * Updates the board-size label text inside the status bar.
  * @param size - The selected board size value, or undefined if not selected.
- * @returns void
  */
 function updateSizeLabel(size: string | undefined): void {
   const el = document.getElementById("selected-size");
@@ -160,7 +207,6 @@ function updateSizeLabel(size: string | undefined): void {
 
 /**
  * Runs the expand-pulse animation on the selections status bar.
- * @returns void
  */
 function triggerStatusAnimation(): void {
   const status = document.getElementById("selections-status");
@@ -174,7 +220,6 @@ function triggerStatusAnimation(): void {
 /**
  * Toggles between the default and active splitter images.
  * @param allSelected - Whether all three options are selected.
- * @returns void
  */
 function toggleSplitters(allSelected: boolean): void {
   document
@@ -188,7 +233,6 @@ function toggleSplitters(allSelected: boolean): void {
 /**
  * Enables or disables the start-game button and swaps its icon.
  * @param allSelected - Whether all three options are selected.
- * @returns void
  */
 function toggleStartButton(allSelected: boolean): void {
   const btn = document.getElementById(
@@ -205,7 +249,6 @@ function toggleStartButton(allSelected: boolean): void {
 /**
  * Updates splitters and the start button based on whether all selections are made.
  * @param allSelected - Whether theme, player, and board size are all selected.
- * @returns void
  */
 export function updateSelectionsStatusComplete(allSelected: boolean): void {
   toggleSplitters(allSelected);
@@ -217,7 +260,6 @@ export function updateSelectionsStatusComplete(allSelected: boolean): void {
 /**
  * Reads the current settings-screen selection and saves it into the game
  * config. Must run while the settings screen is still mounted.
- * @returns void
  */
 export function applySelection(): void {
   const { theme, player, size } = readSelectedValues();
@@ -230,7 +272,6 @@ export function applySelection(): void {
 /**
  * Renders the game screen (score board, cards, current player, theme) from
  * the saved game config. Must run after the game screen is mounted.
- * @returns void
  */
 export function renderGameScreen(): void {
   const { theme, player, size } = currentGameConfig;
@@ -246,7 +287,6 @@ export function renderGameScreen(): void {
  * @param theme - The selected theme.
  * @param player - The selected player.
  * @param size - The selected board size.
- * @returns void
  */
 export function setGameState(theme: string, player: string, size: string): void {
   currentGameConfig = {
@@ -278,7 +318,6 @@ function readSelectedValues(): { theme?: string; player?: string; size?: string;
 
 /**
  * Refreshes all status-bar labels, triggers the animation, and updates the complete state.
- * @returns void
  */
 export function updatePreview(): void {
   const { theme, player, size } = readSelectedValues();
@@ -294,7 +333,6 @@ export function updatePreview(): void {
 
 /**
  * Resets the status-bar labels back to their placeholder text.
- * @returns void
  */
 function resetStatusLabels(): void {
   const theme = document.getElementById("selected-theme");
@@ -309,12 +347,13 @@ function resetStatusLabels(): void {
 /**
  * Resets the settings screen (selections, active icons, status bar, theme
  * preview) back to its initial, just-opened state.
- * @returns void
  */
 export function resetSettingsScreen(): void {
   document.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((input) => { input.checked = input.defaultChecked; });
 
-  document.querySelectorAll(".settings-screen-option").forEach(restoreFieldsetIcons);
+  document.querySelectorAll(".settings-screen-option").forEach((fieldset) => {
+    restoreFieldsetIcons(fieldset, fieldset.querySelector('input[type="radio"]:checked'));
+  });
 
   resetStatusLabels();
   updateSelectionsStatusComplete(false);
@@ -328,21 +367,22 @@ export function resetSettingsScreen(): void {
 /**
  * Registers the change listener for a single radio input.
  * @param input - The radio input to listen on.
- * @returns void
  */
 function addSelectionChangeListener(input: HTMLInputElement): void {
-  input.addEventListener("change", (event) => {
+  input.addEventListener("click", (event) => {
     const target = event.target as HTMLInputElement;
-    if (target.checked) {
-      updateActiveIcons(target);
-      updatePreview();
-    }
+    if (!target.checked) return;
+
+    const fieldset = target.closest(".settings-screen-option");
+    if (fieldset) lastCheckedByFieldset.delete(fieldset);
+
+    updateActiveIcons(target);
+    updatePreview();
   });
 }
 
 /**
  * Initializes change listeners on all radio inputs in the settings screen.
- * @returns void
  */
 export function initSelection(): void {
   document.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach(addSelectionChangeListener);

@@ -3,7 +3,6 @@ import * as app from "./index";
 /**
  * Renders the score-board template into the score-board container based on the game theme.
  * @param theme - game theme name
- * @returns void
  */
 export function renderScoreBoard(theme: app.interfaces.GameTheme["name"]): void {
   const themeImages = theme === "gaming" ? app.themes.themeGaming.images : app.themes.themeDaProjects.images;
@@ -17,7 +16,6 @@ export function renderScoreBoard(theme: app.interfaces.GameTheme["name"]): void 
  * Renders the game cards template into the game board container, in random order.
  * @param theme - game theme card images
  * @param size - number of cards to render (should be an even number)
- * @returns void
  */
 export function renderCards(theme: app.interfaces.GameTheme["name"], size: number): void {
   const themeImages = theme === "gaming" ? app.themes.themeGaming.images : app.themes.themeDaProjects.images;
@@ -34,20 +32,10 @@ export function renderCards(theme: app.interfaces.GameTheme["name"], size: numbe
 /**
  * Renders the player turn icon based on the selected player.
  * @param player - The selected player value.
- * @returns void
  */
 export function renderCurrentPlayer(player: string): void {
   const icon = document.getElementById("current-player-icon");
   if (!icon) return;
 
-  switch (player) {
-    case "blue":
-      icon.classList.remove("orange");
-      icon.classList.add("blue");
-      break;
-    case "orange":
-      icon.classList.remove("blue");
-      icon.classList.add("orange");
-      break;
-  }
+  player === "blue" ? app.switchClasses(icon, "orange", "blue") : app.switchClasses(icon, "blue", "orange");
 }

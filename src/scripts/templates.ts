@@ -44,20 +44,12 @@ function optionLabel(name: string, option: app.interfaces.RadioOption): string {
 
 /**
  * Builds one settings fieldset (icon + legend + a list of radio options).
- * @param iconSrc - The legend icon's image source.
- * @param iconAlt - The legend icon's alt text.
- * @param legendText - The fieldset's legend text.
- * @param name - The radio group's name attribute shared by all options.
- * @param options - The radio options to render.
+ * @param config - The fieldset's icon, legend, group name, and radio options.
  * @returns HTML string
  */
-function optionFieldset(
-    iconSrc: string,
-    iconAlt: string,
-    legendText: string,
-    name: string,
-    options: app.interfaces.RadioOption[],
-): string {
+function optionFieldset(config: app.interfaces.OptionFieldsetConfig): string {
+    const { iconSrc, iconAlt, legendText, name, options } = config;
+
     return `
                     <fieldset class="settings-screen-option">
                         <legend>
@@ -73,7 +65,7 @@ function optionFieldset(
  * @returns HTML string
  */
 function themePreviewImage(theme: string): string {
-  return `<img id="theme-preview" src="${app.themes.themePreviewImages[theme]}" alt="theme">`;
+    return `<img id="theme-preview" src="${app.themes.themePreviewImages[theme]}" alt="theme">`;
 }
 
 /**
@@ -101,6 +93,7 @@ function statusLabel(id: string, text: string, withSplitter: boolean): string {
 /**
  * Builds the settings screen's HTML markup.
  * @returns HTML string
+ * @remarks LONG FUNCTION (34 lines > 14) — consider splitting.
  */
 export function settingScreenTemplate(): string {
     return `
@@ -113,9 +106,9 @@ export function settingScreenTemplate(): string {
             </div>
             <div class="settings-content">
                 <div class="options-container">
-                    ${optionFieldset("img/palette.svg", "theme", "Game Themes", "theme", app.themeOptions)}
-                    ${optionFieldset("img/chess_pawn.svg", "player", "Choose Player", "player", app.playerOptions)}
-                    ${optionFieldset("img/style.svg", "board icon", "Board Size", "board", app.boardOptions)}
+                    ${optionFieldset({ iconSrc: "img/palette.svg", iconAlt: "theme", legendText: "Game Themes", name: "theme", options: app.themeOptions })}
+                    ${optionFieldset({ iconSrc: "img/chess_pawn.svg", iconAlt: "player", legendText: "Choose Player", name: "player", options: app.playerOptions })}
+                    ${optionFieldset({ iconSrc: "img/style.svg", iconAlt: "board icon", legendText: "Board Size", name: "board", options: app.boardOptions })}
                 </div>
                 <div class="choices-container">
                     <div id="preview-theme">
@@ -140,6 +133,7 @@ export function settingScreenTemplate(): string {
 /**
  * Builds the game screen's HTML markup.
  * @returns HTML string
+ * @remarks LONG FUNCTION (32 lines > 14) — consider splitting.
  */
 export function gameScreenTemplate(): string {
     return `
@@ -197,6 +191,7 @@ export function scoreTemplate(theme: app.interfaces.GameTheme["images"]): string
  * @param theme - game theme card images
  * @param cardIndexes - the card image index for each card slot, in render order
  * @returns HTML string
+ * @remarks LONG FUNCTION (18 lines > 14) — consider splitting.
  */
 export function cardsTemplate(
     theme: app.interfaces.GameTheme["images"],

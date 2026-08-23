@@ -54,7 +54,6 @@ function buildWinnerScreenData(theme: string, winner: app.interfaces.Winner): ap
 
 /**
  * Binds the home button to return to the settings screen.
- * @returns void
  */
 function bindHomeButton(): void {
   document
@@ -65,7 +64,6 @@ function bindHomeButton(): void {
 /**
  * Ends the game: shows the game-over screen, then the winner screen 3
  * seconds later, both sliding down from the top of the game screen.
- * @returns void
  */
 export function endTheGame(): void {
   const gameScreen = document.getElementById("game-screen");
@@ -76,9 +74,17 @@ export function endTheGame(): void {
 
   gameScreen.insertAdjacentHTML("beforeend", app.templates.gameOverScreenTemplate(theme));
 
-  setTimeout(() => {
-    const data = buildWinnerScreenData(theme, winner);
-    gameScreen.insertAdjacentHTML("beforeend", app.templates.winnerScreenTemplate(theme, data));
-    bindHomeButton();
-  }, 2000);
+  setTimeout(showWinnerScreen, 2000, theme, winner, gameScreen);
+}
+
+/**
+ * Shows the winner screen with delay.
+ * @param theme - The current theme identifier ('gaming' | 'da-projects').
+ * @param winner - The winning player, or 'tie'.
+ * @param gameScreen - The game screen element.
+ */
+function showWinnerScreen(theme: string, winner: app.interfaces.Winner, gameScreen: HTMLElement): void {
+  const data = buildWinnerScreenData(theme, winner);
+  gameScreen.insertAdjacentHTML("beforeend", app.templates.winnerScreenTemplate(theme, data));
+  bindHomeButton();
 }

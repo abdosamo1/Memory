@@ -4,7 +4,6 @@ import * as app from "./index";
 /**
  * Main initialization function. Binds global, document-level listeners that
  * only need to be registered once, then mounts the start screen.
- * @returns void
  */
 function init(): void {
   app.addQuitOverlayOutsideClickListener();
