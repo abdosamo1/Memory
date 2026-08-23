@@ -3,6 +3,7 @@
 section {
     @include flex-center;
     @include full-place;
+    overflow: hidden;
 }
 
 .section-content {
@@ -10,4 +11,5 @@ section {
     @include full-place;
     position: relative;
     max-width: 1440px;
+    max-height: 1024px;
 }

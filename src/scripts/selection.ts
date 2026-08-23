@@ -125,6 +125,23 @@ function previewLabelChecked(label: HTMLLabelElement, fieldset: Element): void {
 }
 
 /**
+ * Applies the actually-checked input to a fieldset's radio group, unchecking
+ * whichever input the hover preview had checked instead.
+ * @param fieldset - The option fieldset to update.
+ * @param actualChecked - The radio input that should end up checked, if any.
+ */
+function applyActualChecked(fieldset: Element, actualChecked: HTMLInputElement | null): void {
+  const currentlyChecked = fieldset.querySelector<HTMLInputElement>('input[type="radio"]:checked');
+  if (currentlyChecked === actualChecked) return;
+
+  if (actualChecked) {
+    actualChecked.checked = true;
+  } else if (currentlyChecked) {
+    currentlyChecked.checked = false;
+  }
+}
+
+/**
  * Restores a fieldset's radio input (and active icons) back to the option that
  * was actually chosen before hovering started.
  * @param fieldset - The option fieldset to restore.
@@ -135,15 +152,7 @@ function restoreFieldsetChecked(fieldset: Element): void {
   const actualChecked = lastCheckedByFieldset.get(fieldset) ?? null;
   lastCheckedByFieldset.delete(fieldset);
 
-  const currentlyChecked = fieldset.querySelector<HTMLInputElement>('input[type="radio"]:checked');
-  if (currentlyChecked !== actualChecked) {
-    if (actualChecked) {
-      actualChecked.checked = true;
-    } else if (currentlyChecked) {
-      currentlyChecked.checked = false;
-    }
-  }
-
+  applyActualChecked(fieldset, actualChecked);
   restoreFieldsetIcons(fieldset, actualChecked);
 }
 
