@@ -188,7 +188,8 @@ export let currentGameConfig: app.interfaces.GameSettings = {
 };
 
 /**
- * Updates the selected theme, player, and board size from user selection.
+ * Reads the current settings-screen selection and saves it into the game
+ * config. Must run while the settings screen is still mounted.
  * @returns void
  */
 export function applySelection(): void {
@@ -196,11 +197,21 @@ export function applySelection(): void {
 
   if (theme && player && size) {
     setGameState(theme, player, size);
-    app.render.renderCurrentPlayer(player);
-    app.render.renderScoreBoard(theme);
-    app.render.renderCards(theme, parseInt(size));
-    app.themes.applyThemeToGameBoard(theme);
   }
+}
+
+/**
+ * Renders the game screen (score board, cards, current player, theme) from
+ * the saved game config. Must run after the game screen is mounted.
+ * @returns void
+ */
+export function renderGameScreen(): void {
+  const { theme, player, size } = currentGameConfig;
+
+  app.render.renderCurrentPlayer(player);
+  app.render.renderScoreBoard(theme);
+  app.render.renderCards(theme, parseInt(size));
+  app.themes.applyThemeToGameBoard(theme);
 }
 
 /**

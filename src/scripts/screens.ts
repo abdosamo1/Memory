@@ -1,53 +1,45 @@
 import { toggleClass } from './dom';
 import * as app from './index';
 
+// ─── Screen Mounting ──────────────────────────────────────────────────────────
+
+type ScreenName = 'start' | 'settings' | 'game';
+
+const screenTemplates: Record<ScreenName, () => string> = {
+    start: app.templates.startScreenTemplate,
+    settings: app.templates.settingScreenTemplate,
+    game: app.templates.gameScreenTemplate,
+};
+
+const screenInitializers: Record<ScreenName, () => void> = {
+    start: () => initStartScreen(),
+    settings: () => initSettingsScreen(),
+    game: () => initGameScreen(),
+};
+
+/**
+ * Renders the given screen's markup into the #app-view mount point,
+ * replacing whatever screen is currently mounted, then runs that screen's
+ * event-binding initializer.
+ * @param name - The screen to render ('start' | 'settings' | 'game').
+ * @returns void
+ */
+/**
+ * Renders the given screen's markup into the #app-view mount point,
+ * replacing whatever screen is currently mounted, then runs that screen's
+ * event-binding initializer.
+ * @param name - The screen to render ('start' | 'settings' | 'game').
+ * @returns void
+ */
+export function renderScreen(name: ScreenName): void {
+    const mount = document.getElementById('app-view');
+    if (!mount) return;
+
+    mount.innerHTML = screenTemplates[name]();
+    screenInitializers[name]();
+}
+
 // ─── Screen Transitions ───────────────────────────────────────────────────────
-
-/**
- * Hides the start screen by adding the 'hidden' class.
- * @param screen - The screen element.
- * @returns void
- */
-function hideScreen(screen: HTMLElement): void {
-    screen.classList.add('hidden');
-}
-
-/**
- * Shows the settings screen by removing the 'hidden' class.
- * @param screen - The screen element.
- * @returns void
- */
-function showScreen(screen: HTMLElement): void {
-    screen.classList.remove('hidden');
-}
-
-/**
- * Transitions from the start screen to the settings screen.
- * @returns void
- */
-export function showSettingsScreen(): void {
-    const startScreen = document.getElementById('start-screen') as HTMLElement;
-    const settingsScreen = document.getElementById('setting-screen') as HTMLElement;
-
-    if (startScreen && settingsScreen) {
-        hideScreen(startScreen);
-        showScreen(settingsScreen);
-    }
-}
-
-/**
- * Transitions from the setting screen to the game screen.
- * @returns void
- */
-export function showGameScreen(): void {
-    const settingsScreen = document.getElementById('setting-screen') as HTMLElement;
-    const gameScreen = document.getElementById('game-screen') as HTMLElement;
-
-    if (settingsScreen && gameScreen) {
-        hideScreen(settingsScreen);
-        showScreen(gameScreen);
-    }
-}
 
 /**
  * Transitions from the game screen back to the settings screen, resetting the
@@ -55,18 +47,11 @@ export function showGameScreen(): void {
  * @returns void
  */
 export function backToSetting(): void {
-    const gameScreen = document.getElementById('game-screen') as HTMLElement;
-    const settingsScreen = document.getElementById('setting-screen') as HTMLElement;
-
-    if (gameScreen && settingsScreen) {
-        hideScreen(gameScreen);
-        showScreen(settingsScreen);
-    }
-
+    renderScreen('settings');
     app.resetSettingsScreen();
 }
 
-// ─── Start Screen UI ──────────────────────────────────────────────────────────
+// ─── Start Screen ─────────────────────────────────────────────────────────────
 
 /**
  * Toggles both play-arrow icons between their default and hover states.
@@ -80,4 +65,54 @@ export function togglePlayArrows(): void {
         toggleClass(playArrow, 'hidden');
         toggleClass(playArrowHover, 'hidden');
     }
+}
+
+/**
+ * Binds the start screen's event listeners (play-arrow hover, start click).
+ * Runs after the start screen template is mounted.
+ * @returns void
+ */
+export function initStartScreen(): void {
+    const startButton = document.getElementById('start-button');
+
+    startButton?.addEventListener('mouseenter', togglePlayArrows);
+    startButton?.addEventListener('mouseleave', togglePlayArrows);
+    startButton?.addEventListener('click', () => renderScreen('settings'));
+}
+
+// ─── Settings Screen ──────────────────────────────────────────────────────────
+
+/**
+ * Binds the settings screen's event listeners (options, theme preview, start
+ * game button). Runs after the settings screen template is mounted.
+ * @returns void
+ */
+export function initSettingsScreen(): void {
+    app.initSelection();
+    app.initOptionIconHover();
+    app.themes.updateThemeonclick();
+    app.themes.updateThemeonHover();
+
+    const startGameButton = document.getElementById(
+        'start-game-button',
+    ) as HTMLButtonElement | null;
+
+    startGameButton?.addEventListener('click', () => {
+        app.applySelection();
+        renderScreen('game');
+        app.renderGameScreen();
+    });
+}
+
+// ─── Game Screen ──────────────────────────────────────────────────────────────
+
+/**
+ * Binds the game screen's event listeners (card flip, quit button, quit
+ * overlay buttons). Runs after the game screen template is mounted.
+ * @returns void
+ */
+export function initGameScreen(): void {
+    app.cardFlip();
+    app.addQuitEventListener();
+    app.addQuitOverlayButtonsEventListeners();
 }
