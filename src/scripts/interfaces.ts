@@ -1,3 +1,6 @@
+/**
+ * Represents the current configuration and state of a game session.
+ */
 export interface GameSettings {
     theme: string;
     player: string;
@@ -6,6 +9,9 @@ export interface GameSettings {
     bluePlayerScore: number;
 }
 
+/**
+ * Represents a visual theme, including its display name and associated images.
+ */
 export interface GameTheme {
     name: string;
     images: {

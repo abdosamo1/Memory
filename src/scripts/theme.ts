@@ -1,7 +1,8 @@
-// Theme handlers in Settings Screen
-
 import * as interfaces from "./interfaces";
 
+/**
+ * Represents the gaming theme, with its card images, win/tie images, and score images.
+ */
 export const themeGaming: interfaces.GameTheme = {
   name: "gaming",
   images: {
@@ -13,6 +14,9 @@ export const themeGaming: interfaces.GameTheme = {
   },
 };
 
+/**
+ * Represents the da-projects theme, with its card images, win/tie images, and score images.
+ */
 export const themeDaProjects: interfaces.GameTheme = {
   name: "da-projects",
   images: {

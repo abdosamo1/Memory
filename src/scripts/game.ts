@@ -13,14 +13,20 @@ export function cardFlip() {
     const target = (event.target as HTMLElement).closest<HTMLElement>(".card");
     if (!target) return;
 
-    const flippedCards = document.querySelectorAll<HTMLElement>(".card.flipped");
-    const canFlip = flippedCards.length < 2 && !target.classList.contains("matched") && !target.classList.contains("flipped");
-
-    if (canFlip) {
-      app.toggleClass(target, "flipped");
-      document.querySelectorAll<HTMLElement>(".card.flipped").length === 2 ? checkMatch() : null;
-    }
+    tryFlipping(target);
   });
+}
+
+/**
+ * Tries to flip a card if it's a valid move.
+ * @param card - The card to flip.
+ * @returns void
+ */
+function tryFlipping(card: HTMLElement) {
+  const flippedCards = document.querySelectorAll<HTMLElement>(".card.flipped");
+  const canFlip = flippedCards.length < 2 && !card.classList.contains("matched") && !card.classList.contains("flipped");
+
+  canFlip ? (app.toggleClass(card, "flipped"), document.querySelectorAll<HTMLElement>(".card.flipped").length === 2 ? checkMatch() : null) : null;
 }
 
 /**

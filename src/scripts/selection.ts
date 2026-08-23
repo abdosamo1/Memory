@@ -1,7 +1,5 @@
 import * as app from "./index";
 
-// ─── Settings Options ─────────────────────────────────────────────────────────
-
 /**
  * Radio options for the "Game Themes" fieldset.
  */
@@ -26,6 +24,15 @@ export const boardOptions: app.interfaces.RadioOption[] = [
   { value: "24", label: "24 cards" },
   { value: "36", label: "36 cards" },
 ];
+
+export let currentGameConfig: app.interfaces.GameSettings = {
+  theme: "Gaming theme",
+  player: "color",
+  size: "0",
+  orangePlayerScore: 0,
+  bluePlayerScore: 0,
+};
+
 
 // ─── Active Icons ─────────────────────────────────────────────────────────────
 
@@ -206,14 +213,6 @@ export function updateSelectionsStatusComplete(allSelected: boolean): void {
 }
 
 // ─── Preview Orchestration ────────────────────────────────────────────────────
-
-export let currentGameConfig: app.interfaces.GameSettings = {
-  theme: "Gaming theme",
-  player: "color",
-  size: "0",
-  orangePlayerScore: 0,
-  bluePlayerScore: 0,
-};
 
 /**
  * Reads the current settings-screen selection and saves it into the game
